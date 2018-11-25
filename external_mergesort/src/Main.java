@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Université Libre de Bruxelles (ULB)
  * Master Program in Big Data Management & Analytics (BDMA)
@@ -23,9 +25,10 @@
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         System.out.println("We are going to implement external mergesort here!");
+        ReadAndWrite rw = new ReadAndWrite();
 
     }
 }
