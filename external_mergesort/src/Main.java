@@ -31,9 +31,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        startTime = System.nanoTime();
+        startTime = System.currentTimeMillis();
         ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION);
-        endTime = System.nanoTime();
-        System.out.print("Time: " + (endTime - startTime)/1000000 + "ms");
+        endTime = System.currentTimeMillis();
+        System.out.print("Time: " + (endTime - startTime) + "ms");
     }
 }
