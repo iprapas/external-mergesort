@@ -25,10 +25,15 @@ import java.io.IOException;
 
 public class Main {
 
+    private static long startTime;
+    private static long endTime;
+    private static final int IMPLEMENTATION = 2;
+
     public static void main(String[] args) throws IOException {
 
-        System.out.println("We are going to implement external mergesort here!");
-        ReadAndWrite rw = new ReadAndWrite();
-
+        startTime = System.nanoTime();
+        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION);
+        endTime = System.nanoTime();
+        System.out.print("Time: " + (endTime - startTime)/1000000 + "ms");
     }
 }

@@ -9,7 +9,23 @@ public class ReadAndWrite {
     public ReadAndWrite() throws IOException {
         read1();
         write1();
+    }
 
+    public ReadAndWrite(int impl) throws IOException {
+
+        switch (impl){
+            case 1: read1(); write1();
+                break;
+            case 2: read2(); write2();
+                break;
+            case 3: read3(); write3();
+                break;
+            case 4: read4(); write4();
+                break;
+            default:
+                System.out.println("please specify implementation value between [1,4].");
+                System.exit(0);
+        }
 
     }
 
@@ -21,7 +37,6 @@ public class ReadAndWrite {
      * @throws IOException
      */
     private void read1() throws IOException {
-
         InputStream is = new FileInputStream( new File("integers.txt" ) );
         DataInputStream ds = new DataInputStream(is);
         boolean eof = false;
@@ -43,7 +58,6 @@ public class ReadAndWrite {
      * @throws IOException
      */
     private void write1() throws IOException {
-
         OutputStream os = new FileOutputStream( new File("output.txt" ) );
         DataOutputStream ds = new DataOutputStream(os);
         for(Integer value: integers) {
@@ -56,7 +70,15 @@ public class ReadAndWrite {
         InputStream is = new FileInputStream( new File("integers.txt" ) );
         BufferedInputStream bis = new BufferedInputStream( is );
         DataInputStream ds = new DataInputStream( bis );
-        ds.readInt();
+        boolean eof = false;
+
+        while(!eof){
+            try{
+                integers.add(ds.readInt());
+            } catch (EOFException e) {
+                eof = true;
+            }
+        }
 
         ds.close();
     }
@@ -70,13 +92,31 @@ public class ReadAndWrite {
         ds.close();
     }
 
+    /**
+     * now you equip your streams
+     * with a buffer of size B in internal memory. Whenever the buffer becomes empty/full
+     * the next B elements are read/written from/to the file.
+     * @throws IOException
+     */
     private void read3() throws IOException {
-        //now you equip your streams
-        //with a buffer of size B in internal memory. Whenever the buffer becomes empty/full
-        //the next B elements are read/written from/to the file.
         InputStream is = new FileInputStream( new File("integers.txt" ) );
-        DataInputStream ds = new DataInputStream(is);
-        ds.readInt();
+        BufferedInputStream bis = new BufferedInputStream( is );
+        DataInputStream ds = new DataInputStream( bis );
+        byte[] B = new byte[8192];
+        //https://stackoverflow.com/questions/236861/how-do-you-determine-the-ideal-buffer-size-when-using-fileinputstream
+        //https://stackoverflow.com/questions/4638974/what-is-the-buffer-size-in-bufferedreader
+
+        boolean eof = false;
+
+        while(!eof){
+            try{
+
+                System.out.println(ds.read(B));
+                //integers.add(Integer.parseInt());
+            } catch (EOFException e) {
+                eof = true;
+            }
+        }
 
         ds.close();
     }
