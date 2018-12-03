@@ -27,13 +27,15 @@ public class Main {
 
     private static long startTime;
     private static long endTime;
-    private static final int IMPLEMENTATION = 2;
+    private static final int IMPLEMENTATION = 3;
+    private static final String FILENAME = "input.txt";
 
     public static void main(String[] args) throws IOException {
 
         startTime = System.currentTimeMillis();
-        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION);
+        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION, FILENAME);
         endTime = System.currentTimeMillis();
-        System.out.print("Time: " + (endTime - startTime) + "ms");
+        System.out.println("Time: " + (endTime - startTime) + "ms");
+        System.out.println("Read " + rw.numbers.size() + " numbers");
     }
 }
