@@ -113,18 +113,18 @@ public class ReadAndWrite {
         }
 
         //-----2nd way
-        InputStream is = new FileInputStream( new File(input ) );
-        BufferedInputStream bis = new BufferedInputStream( is, bufferSize);
-        DataInputStream ds = new DataInputStream( bis );
-        boolean eof = false;
-        while(!eof){
-            try{
-                numbers.add(ds.readInt());
-            } catch (EOFException e) {
-                eof = true;
-            }
-        }
-        ds.close();
+//        InputStream is = new FileInputStream( new File(input ) );
+//        BufferedInputStream bis = new BufferedInputStream( is, bufferSize);
+//        DataInputStream ds = new DataInputStream( bis );
+//        boolean eof = false;
+//        while(!eof){
+//            try{
+//                numbers.add(ds.readInt());
+//            } catch (EOFException e) {
+//                eof = true;
+//            }
+//        }
+//        ds.close();
     }
 
     private void write3() throws IOException {
