@@ -27,7 +27,7 @@ public class Main {
 
     private static long startTime;
     private static long endTime;
-    private static final int IMPLEMENTATION = 3;
+    private static final int IMPLEMENTATION = 1;
     private static final String FILENAME = "input.txt";
 
     public static void main(String[] args) throws IOException {

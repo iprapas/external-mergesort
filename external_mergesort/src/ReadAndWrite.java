@@ -40,6 +40,7 @@ public class ReadAndWrite {
     private void read1() throws IOException {
         InputStream is = new FileInputStream( new File(input) );
         DataInputStream ds = new DataInputStream(is);
+
         boolean eof = false;
 
         while(!eof){
