@@ -4,15 +4,19 @@ import java.util.List;
 
 public class ReadAndWrite {
 
+
     List<Integer> numbers = new ArrayList<>();
     String input;
+    String line;
+    int bufferSize;
 
     public ReadAndWrite() throws IOException {
         read1();
         write1();
     }
 
-    public ReadAndWrite(int impl, String input) throws IOException {
+    public ReadAndWrite(int impl, int bufferSize, String input) throws IOException {
+        this.bufferSize = bufferSize;
         this.input = input;
 
         switch (impl){
@@ -20,15 +24,14 @@ public class ReadAndWrite {
                 break;
             case 2: read2(); write2();
                 break;
-            case 3: read3(); write1(); // CHANGE TO WRITE3 WHEN IMPLEMENTED
+            case 3: read3(); write3();
                 break;
-            case 4: read4(); write1(); // CHANGE TO WRITE3 WHEN IMPLEMENTED
+            case 4: read4(); write4();
                 break;
             default:
                 System.out.println("please specify implementation value between [1,4].");
                 System.exit(0);
         }
-
     }
 
     /**
@@ -40,17 +43,9 @@ public class ReadAndWrite {
     private void read1() throws IOException {
         InputStream is = new FileInputStream( new File(input) );
         DataInputStream ds = new DataInputStream(is);
-
-        boolean eof = false;
-
-        while(!eof){
-            try{
-                numbers.add(ds.readInt());
-            } catch (EOFException e) {
-                eof = true;
-            }
+        while((line = ds.readLine()) != null){
+            numbers.add(Integer.parseInt(line));
         }
-
         ds.close();
     }
 
@@ -63,7 +58,7 @@ public class ReadAndWrite {
         OutputStream os = new FileOutputStream( new File("output.txt" ) );
         DataOutputStream ds = new DataOutputStream(os);
         for(Integer value: numbers) {
-            ds.writeLong(value);
+            ds.writeBytes(value +"\n");
         }
         ds.close();
     }
@@ -72,16 +67,9 @@ public class ReadAndWrite {
         InputStream is = new FileInputStream( new File(input) );
         BufferedInputStream bis = new BufferedInputStream( is );
         DataInputStream ds = new DataInputStream( bis );
-        boolean eof = false;
-
-        while(!eof){
-            try{
-                numbers.add(ds.readInt());
-            } catch (EOFException e) {
-                eof = true;
-            }
+        while((line = ds.readLine()) != null){
+            numbers.add(Integer.parseInt(line));
         }
-
         ds.close();
     }
 
@@ -89,8 +77,9 @@ public class ReadAndWrite {
         OutputStream is = new FileOutputStream( new File("output.txt" ) );
         BufferedOutputStream bis = new BufferedOutputStream( is );
         DataOutputStream ds = new DataOutputStream( bis );
-        ds.writeInt(2);
-
+        for(Integer value: numbers) {
+            ds.writeBytes(value +"\n");
+        }
         ds.close();
     }
 
@@ -101,17 +90,18 @@ public class ReadAndWrite {
      * @throws IOException
      */
     private void read3() throws IOException {
-
-        int bufferSize = 4 * 1024;
-
-        //mark, reset...
-
         //-----1st way
         BufferedReader br = new BufferedReader(new FileReader(new File(input)),bufferSize);
-        String line;
         while((line = br.readLine()) != null){
             numbers.add(Integer.parseInt(line));
         }
+
+//        InputStream is = new FileInputStream( new File(input) );
+//        BufferedInputStream bis = new BufferedInputStream( is,bufferSize );
+//        DataInputStream ds = new DataInputStream( bis );
+//        while((line = ds.readLine()) != null){
+//            numbers.add(Integer.parseInt(line));
+//        }
 
         //-----2nd way
 //        InputStream is = new FileInputStream( new File(input ) );
@@ -129,10 +119,13 @@ public class ReadAndWrite {
     }
 
     private void write3() throws IOException {
-        //now you equip your streams
-        //with a buffer of size B in internal memory. Whenever the buffer becomes empty/full
-        //the next B elements are read/written from/to the file.
-
+        OutputStream is = new FileOutputStream( new File("output.txt" ) );
+        BufferedOutputStream bis = new BufferedOutputStream( is,bufferSize );
+        DataOutputStream ds = new DataOutputStream( bis );
+        for(Integer value: numbers) {
+            ds.writeBytes(value +"\n");
+        }
+        ds.close();
     }
 
     private void read4(){

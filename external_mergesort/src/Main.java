@@ -24,18 +24,19 @@ import java.io.IOException;
  */
 
 public class Main {
-
     private static long startTime;
     private static long endTime;
-    private static final int IMPLEMENTATION = 1;
-    private static final String FILENAME = "input.txt";
+    private static final int IMPLEMENTATION = 2;
+    private static final int BUFFERSIZE = 4 * 1024;
+    private static final String FILENAME = "input-1m.txt";
 
     public static void main(String[] args) throws IOException {
 
         startTime = System.currentTimeMillis();
-        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION, FILENAME);
+        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION, BUFFERSIZE, FILENAME);
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
         System.out.println("Read " + rw.numbers.size() + " numbers");
+
     }
 }
