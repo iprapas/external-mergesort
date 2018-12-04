@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Université Libre de Bruxelles (ULB)
@@ -27,24 +26,53 @@ import java.util.Collections;
 public class Main {
     private static long startTime;
     private static long endTime;
+
+    private static final int IMPLEMENTATION = 1; // 0 = Generate file.
     private static final int BUFFERSIZE = 4 * 1024;
     private static final String FILENAME = "input-test.txt";
     private static final String OUTPUTFILENAME= "output.txt";
     private static final int ELEMENTS = 1000000000; //10m
 
+    private static InStream is;
+    private static OutStream os;
 
     public static void main(String[] args) throws IOException {
 
-        GenerateFile gf = new GenerateFile();
-        gf.generate(FILENAME, ELEMENTS);
-
         startTime = System.currentTimeMillis();
+        selectIO();
+        execute();
+        endTime = System.currentTimeMillis();
+        System.out.println("Time: " + (endTime - startTime) + "ms");
+
+    }
+
+    private static void selectIO() throws IOException {
+        switch (IMPLEMENTATION){
+            case 1:
+                is = new InputStream1(FILENAME);
+                os = new OutputStream1(OUTPUTFILENAME);
+                break;
+            case 2:
+                is = new InputStream2(FILENAME);
+                os = new OutputStream2(OUTPUTFILENAME);
+                break;
+            case 3:
+                is = new InputStream3(FILENAME,BUFFERSIZE);
+                os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
+                break;
+            case 4:
+                is = new InputStream4(FILENAME);
+                os = new OutputStream4(OUTPUTFILENAME);
+                break;
+            default:
+                GenerateFile gf = new GenerateFile();
+                gf.generate(FILENAME, ELEMENTS);
+                //System.out.println("Please select implementation among [1,4]");
+        }
+    }
 
 
-//        InStream is = new InputStream3(FILENAME,BUFFERSIZE);
-//        OutStream os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
-        InStream is = new InputStream2(FILENAME);
-        OutStream os = new OutputStream2(OUTPUTFILENAME);
+    private static void execute() throws IOException {
         os.create();
         is.open();
         while(!is.end_of_stream()){
@@ -52,8 +80,5 @@ public class Main {
         }
         is.close();
         os.close();
-
-        endTime = System.currentTimeMillis();
-        System.out.println("Time: " + (endTime - startTime) + "ms");
     }
 }
