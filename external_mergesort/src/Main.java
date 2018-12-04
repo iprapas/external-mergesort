@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Collections;
 
 /**
  * Université Libre de Bruxelles (ULB)
@@ -26,17 +27,33 @@ import java.io.IOException;
 public class Main {
     private static long startTime;
     private static long endTime;
-    private static final int IMPLEMENTATION = 2;
     private static final int BUFFERSIZE = 4 * 1024;
-    private static final String FILENAME = "input-1m.txt";
+    private static final String FILENAME = "input-test.txt";
+    private static final String OUTPUTFILENAME= "output.txt";
+    private static final int ELEMENTS = 1000000000; //10m
+
 
     public static void main(String[] args) throws IOException {
 
+        GenerateFile gf = new GenerateFile();
+        gf.generate(FILENAME, ELEMENTS);
+
         startTime = System.currentTimeMillis();
-        ReadAndWrite rw = new ReadAndWrite(IMPLEMENTATION, BUFFERSIZE, FILENAME);
+
+
+//        InStream is = new InputStream3(FILENAME,BUFFERSIZE);
+//        OutStream os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
+        InStream is = new InputStream2(FILENAME);
+        OutStream os = new OutputStream2(OUTPUTFILENAME);
+        os.create();
+        is.open();
+        while(!is.end_of_stream()){
+            os.write(is.read_next());
+        }
+        is.close();
+        os.close();
+
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
-        System.out.println("Read " + rw.numbers.size() + " numbers");
-
     }
 }
