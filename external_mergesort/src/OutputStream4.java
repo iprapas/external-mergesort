@@ -8,14 +8,16 @@ public class OutputStream4 extends OutStream{
     private FileChannel fc;
     MappedByteBuffer mem;
     long memPos=0;
-    public OutputStream4(String filepath){
+    int numInts;
+    public OutputStream4(String filepath, int elements){
         path = filepath;
+        numInts = elements;
     }
 
     @Override
     public void create() throws IOException {
         fc = new RandomAccessFile(path, "rw").getChannel();
-        mem =fc.map(FileChannel.MapMode.READ_WRITE, 0,   4*100000);
+        mem =fc.map(FileChannel.MapMode.READ_WRITE, 0,   4*numInts);
     }
 
     @Override

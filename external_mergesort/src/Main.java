@@ -28,10 +28,10 @@ public class Main {
     private static long endTime;
 
     private static final int IMPLEMENTATION = 4; // 0 = Generate file.
-    private static final int BUFFERSIZE = 8*1024;
-    private static final int ELEMENTS = 100000; //10m
+    private static final int BUFFERSIZE = 4*10000000;
+    private static final int ELEMENTS = 10000000; //10m
     private static final String FILENAME = "generated_input_"+Integer.toString(ELEMENTS)+".txt";
-    private static final String OUTPUTFILENAME= "output_1.txt";
+    private static final String OUTPUTFILENAME= "output_implementation_"+Integer.toString(IMPLEMENTATION)+".txt";
 
 
     private static InStream is;
@@ -63,7 +63,7 @@ public class Main {
                 break;
             case 4:
                 is = new InputStream4(FILENAME);
-                os = new OutputStream4(OUTPUTFILENAME);
+                os = new OutputStream4(OUTPUTFILENAME, ELEMENTS);
                 break;
             default:
                 GenerateFile gf = new GenerateFile();
