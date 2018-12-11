@@ -27,11 +27,12 @@ public class Main {
     private static long startTime;
     private static long endTime;
 
-    private static final int IMPLEMENTATION = 1; // 0 = Generate file.
-    private static final int BUFFERSIZE = 4 * 1024;
-    private static final String FILENAME = "input-test.txt";
-    private static final String OUTPUTFILENAME= "output.txt";
-    private static final int ELEMENTS = 1000000000; //10m
+    private static final int IMPLEMENTATION = 4; // 0 = Generate file.
+    private static final int BUFFERSIZE = 8*1024;
+    private static final int ELEMENTS = 100000; //10m
+    private static final String FILENAME = "generated_input_"+Integer.toString(ELEMENTS)+".txt";
+    private static final String OUTPUTFILENAME= "output_1.txt";
+
 
     private static InStream is;
     private static OutStream os;

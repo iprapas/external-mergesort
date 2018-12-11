@@ -14,7 +14,7 @@ public class InputStream3 extends InStream{
     public void open() throws FileNotFoundException {
         is = new FileInputStream( new File(path));
         bis = new BufferedInputStream( is, bufferSize);
-        ds = new DataInputStream(is);
+        ds = new DataInputStream(bis);
     }
 
     @Override

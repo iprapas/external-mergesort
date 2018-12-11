@@ -12,8 +12,8 @@ public class OutputStream3 extends OutStream {
 
     @Override
     public void create() throws FileNotFoundException {
-        os = new FileOutputStream( new File("output.txt" ) );
-        bos = new BufferedOutputStream( os );
+        os = new FileOutputStream( new File(path ) );
+        bos = new BufferedOutputStream( os , bufferSize);
         dos = new DataOutputStream( bos );
     }
 
