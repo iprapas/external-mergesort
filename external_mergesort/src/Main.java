@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Université Libre de Bruxelles (ULB)
@@ -27,11 +28,13 @@ public class Main {
     private static long startTime;
     private static long endTime;
 
-    private static final int IMPLEMENTATION = 4; // 0 = Generate file.
-    private static final int BUFFERSIZE = 4*10000000;
-    private static final int ELEMENTS = 10000000; //10m
-    private static final String FILENAME = "generated_input_"+Integer.toString(ELEMENTS)+".txt";
-    private static final String OUTPUTFILENAME= "output_implementation_"+Integer.toString(IMPLEMENTATION)+".txt";
+    private static final boolean CMD_RUN = false;
+    private static int IMPLEMENTATION = 2; // 0 = Generate file.
+    private static int BUFFERSIZE = 4*100000;
+    private static int ELEMENTS = 10000000; //10m
+    private static int BENCHMARK=1; // 0 GENERATE FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT
+    private static String FILENAME = "generated_input_"+Integer.toString(ELEMENTS)+".txt";
+    private static String OUTPUTFILENAME= "output_implementation_"+Integer.toString(IMPLEMENTATION)+".txt";
 
 
     private static InStream is;
@@ -39,47 +42,93 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        if (CMD_RUN) {
+            if (args.length != 4) {
+                System.out.println("Please enter 4 arguments: <IO implementation> <buffersize> <infile> <outfile> ");
+                System.exit(0);
+            } else {
+                IMPLEMENTATION = Integer.parseInt(args[0]);
+
+                BUFFERSIZE = Integer.parseInt(args[1]);
+                FILENAME = args[2];
+                OUTPUTFILENAME = args[3];
+            }
+        }
+
         startTime = System.currentTimeMillis();
-        selectIO();
-        execute();
+        if (BENCHMARK==0){
+            //
+        } else if (BENCHMARK==1) {
+            benchIO();
+        } else {
+            //
+        }
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
 
     }
 
-    private static void selectIO() throws IOException {
-        switch (IMPLEMENTATION){
-            case 1:
-                is = new InputStream1(FILENAME);
-                os = new OutputStream1(OUTPUTFILENAME);
-                break;
-            case 2:
-                is = new InputStream2(FILENAME);
-                os = new OutputStream2(OUTPUTFILENAME);
-                break;
-            case 3:
-                is = new InputStream3(FILENAME,BUFFERSIZE);
-                os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
-                break;
-            case 4:
-                is = new InputStream4(FILENAME);
-                os = new OutputStream4(OUTPUTFILENAME, ELEMENTS);
-                break;
-            default:
-                GenerateFile gf = new GenerateFile();
-                gf.generate(FILENAME, ELEMENTS);
-                //System.out.println("Please select implementation among [1,4]");
+//    private static void selectIO() throws IOException {
+//        switch (IMPLEMENTATION){
+//            case 1:
+//                is = new InputStream1(FILENAME);
+//                os = new OutputStream1(OUTPUTFILENAME);
+//                break;
+//            case 2:
+//                is = new InputStream2(FILENAME);
+//                os = new OutputStream2(OUTPUTFILENAME);
+//                break;
+//            case 3:
+//                is = new InputStream3(FILENAME,BUFFERSIZE);
+//                os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
+//                break;
+//            case 4:
+//                is = new InputStream4(FILENAME);
+//                os = new OutputStream4(OUTPUTFILENAME, ELEMENTS);
+//                break;
+//            default:
+//                GenerateFile gf = new GenerateFile();
+//                gf.generate(FILENAME, ELEMENTS);
+//                //System.out.println("Please select implementation among [1,4]");
+//        }
+//    }
+
+
+    private static void benchIO() throws IOException {
+        ArrayList<InStream> inputstreams = new ArrayList();
+        ArrayList<OutStream> outputstreams = new ArrayList();
+        for (int i = 0; i < 30; i++) {
+            String infile = "input/input (" + (i + 1) + ").txt";
+            String outfile = "output/output_" + (i + 1) + ".txt";
+
+            ReaderStream rs = new ReaderStream(IMPLEMENTATION, infile, BUFFERSIZE);
+            WriterStream ws = new WriterStream(IMPLEMENTATION, outfile, BUFFERSIZE);
+            is = rs.getStream();
+            os = ws.getStream();
+            os.create();
+            is.open();
+
+            inputstreams.add(is);
+            outputstreams.add(os);
+        }
+
+        int N = 10000000;
+        int i = 0;
+        while (i < N) {
+            for (int j = 0; j < 30; j++) {
+                is = inputstreams.get(j);
+                os = outputstreams.get(j);
+                os.write(is.read_next());
+
+            }
+            i++;
+        }
+
+        for (i = 0; i < 30; i++) {
+            outputstreams.get(i).close();
+            inputstreams.get(i).close();
+
         }
     }
 
-
-    private static void execute() throws IOException {
-        os.create();
-        is.open();
-        while(!is.end_of_stream()){
-            os.write(is.read_next());
-        }
-        is.close();
-        os.close();
-    }
 }

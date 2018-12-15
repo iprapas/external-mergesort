@@ -5,28 +5,40 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
 public class OutputStream4 extends OutStream{
+    private final int bsize;
     private FileChannel fc;
     MappedByteBuffer mem;
-    long memPos=0;
+    private long memPos=0;
+    private long runningPos=0;
     int numInts;
-    public OutputStream4(String filepath, int elements){
+    public OutputStream4(String filepath, int bufferSize){
         path = filepath;
-        numInts = elements;
+        bsize = bufferSize;
     }
 
     @Override
     public void create() throws IOException {
         fc = new RandomAccessFile(path, "rw").getChannel();
-        mem =fc.map(FileChannel.MapMode.READ_WRITE, 0,   4*numInts);
+        mem =fc.map(FileChannel.MapMode.READ_WRITE, 0,   bsize);
+    }
+
+    public void create(int skip) throws IOException {
+        int byteSkip = skip*4;
+        fc = new RandomAccessFile(path, "rw").getChannel();
+        mem =fc.map(FileChannel.MapMode.READ_WRITE, byteSkip,   bsize);
+        memPos = byteSkip;
     }
 
     @Override
     public void write(int element) throws IOException {
-        mem.putInt(element);
+
+        if (runningPos>=mem.limit()) {
+            mem =fc.map(FileChannel.MapMode.READ_WRITE, memPos, bsize);
+            runningPos =0;
+        }
         memPos += 4;
-//        if (mempos>=mem.limit()) {
-//            mem =fc.map(FileChannel.MapMode.READ_WRITE, mempos, 128*1024);
-//        }
+        runningPos +=4;
+        mem.putInt(element);
     }
 
     @Override
