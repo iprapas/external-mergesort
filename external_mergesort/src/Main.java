@@ -31,10 +31,10 @@ public class Main {
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2; // 0 = Generate file.
     private static int BUFFERSIZE = 4*100000;
-    private static int ELEMENTS = 10000000; //10m
-    private static int BENCHMARK=1; // 0 GENERATE FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT
-    private static String FILENAME = "generated_input_"+Integer.toString(ELEMENTS)+".txt";
-    private static String OUTPUTFILENAME= "output_implementation_"+Integer.toString(IMPLEMENTATION)+".txt";
+    private static int ELEMENTS = 1000000;
+    private static int BENCHMARK=2; // 0 GENERATE FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT
+    private static String FILENAME = "generated_input_"+ ELEMENTS +".txt";
+    private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
 
 
     private static InStream is;
@@ -48,7 +48,6 @@ public class Main {
                 System.exit(0);
             } else {
                 IMPLEMENTATION = Integer.parseInt(args[0]);
-
                 BUFFERSIZE = Integer.parseInt(args[1]);
                 FILENAME = args[2];
                 OUTPUTFILENAME = args[3];
@@ -56,43 +55,20 @@ public class Main {
         }
 
         startTime = System.currentTimeMillis();
+
         if (BENCHMARK==0){
-            //
+            GenerateFile gf = new GenerateFile();
+            gf.generate(FILENAME, ELEMENTS);
         } else if (BENCHMARK==1) {
             benchIO();
         } else {
-            //
+            ExternalMergesort em = new ExternalMergesort();
+            readAndPrint();
         }
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
 
     }
-
-//    private static void selectIO() throws IOException {
-//        switch (IMPLEMENTATION){
-//            case 1:
-//                is = new InputStream1(FILENAME);
-//                os = new OutputStream1(OUTPUTFILENAME);
-//                break;
-//            case 2:
-//                is = new InputStream2(FILENAME);
-//                os = new OutputStream2(OUTPUTFILENAME);
-//                break;
-//            case 3:
-//                is = new InputStream3(FILENAME,BUFFERSIZE);
-//                os = new OutputStream3(OUTPUTFILENAME, BUFFERSIZE);
-//                break;
-//            case 4:
-//                is = new InputStream4(FILENAME);
-//                os = new OutputStream4(OUTPUTFILENAME, ELEMENTS);
-//                break;
-//            default:
-//                GenerateFile gf = new GenerateFile();
-//                gf.generate(FILENAME, ELEMENTS);
-//                //System.out.println("Please select implementation among [1,4]");
-//        }
-//    }
-
 
     private static void benchIO() throws IOException {
         ArrayList<InStream> inputstreams = new ArrayList();
@@ -130,5 +106,26 @@ public class Main {
 
         }
     }
+
+    private static void readAndPrint() throws IOException {
+        ArrayList<Integer> test = new ArrayList<>();
+        is = new InputStream2(FILENAME);
+        is.open();
+        while(!is.end_of_stream()){
+            test.add(is.read_next());
+        }
+        is.close();
+        System.out.println("0 --> " + test.get(0));
+        System.out.println("1 --> " + test.get(1));
+        System.out.println("100000 --> " + test.get(100000));
+        System.out.println("100001 --> " + test.get(100001));
+        System.out.println("200000 --> " + test.get(200000));
+        System.out.println("200001 --> " + test.get(200001));
+        System.out.println("300000 --> " + test.get(300000));
+        System.out.println("300001 --> " + test.get(300001));
+        System.out.println("400000 --> " + test.get(400000));
+        System.out.println("400001 --> " + test.get(400001));
+    }
+
 
 }

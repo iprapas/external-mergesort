@@ -26,6 +26,7 @@ public class InputStream4 extends InStream{
         mem =fc.map(FileChannel.MapMode.READ_WRITE, 0, bsize);
     }
 
+    @Override
     public void open(int skip) throws IOException {
         int byteSkip = skip*4;
         fc = new RandomAccessFile(path, "rw").getChannel();

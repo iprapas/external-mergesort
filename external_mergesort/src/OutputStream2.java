@@ -18,6 +18,11 @@ public class OutputStream2 extends OutStream {
     }
 
     @Override
+    public void create(int skip) throws IOException {
+
+    }
+
+    @Override
     public void write(int element) throws IOException {
         dos.writeInt(element);
     }

@@ -14,6 +14,11 @@ public class OutputStream1 extends OutStream {
     }
 
     @Override
+    public void create(int skip) throws IOException {
+
+    }
+
+    @Override
     public void write(int element) throws IOException {
         dos.writeInt(element);
     }

@@ -1,16 +1,16 @@
 import java.io.IOException;
 import java.util.List;
 
-public class MultyWayMerge {
+public class MultiWayMerge {
 
 	private List<InStream> inputStreamList;
 	private OutStream output;
 	private WBLeftistHeap<Integer> heap;
 	
-	public MultyWayMerge(List<InStream> inputStreamList, OutStream output) throws IOException {
+	public MultiWayMerge(List<InStream> inputStreamList, OutStream output, int minPos) throws IOException {
 		this.inputStreamList = inputStreamList;
 		this.output = output;
-		this.output.create();
+		this.output.create(minPos);
 	}
 	
 	public void merge() throws IOException {

@@ -10,6 +10,7 @@ public abstract class InStream {
     protected DataInputStream ds;
 
     public abstract void open() throws IOException;
+    public abstract void open(int pos) throws IOException;
     public abstract  int read_next () throws IOException;
     public abstract boolean end_of_stream() throws IOException;
     public abstract void close() throws IOException;

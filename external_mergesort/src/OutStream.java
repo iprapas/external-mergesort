@@ -10,6 +10,7 @@ public abstract class OutStream {
     protected String path;
 
     public abstract void create() throws IOException;
+    public abstract void create(int skip) throws IOException;
     public abstract  void write (int element) throws IOException;
     public abstract void close() throws IOException;
 
