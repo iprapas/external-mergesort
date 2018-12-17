@@ -1,36 +1,46 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ExternalMergesort {
 
-    private final int N = 1000000;
-    private final int M = N/10;
-    private final int d = 5;
+    private int M; //memory available
+    private int N; //total number of integers
+    private int d; //total streams we can merge in one go
+    private int B;
+
     private List<InStream> streams;
     private List<Integer> limits;
     private List<Integer> inMemoryInput;
     private OutStream os;
+    //private PrintWriter writer;
 
-    private final String INPUTFILE = "generated_input_" + N + ".txt";
 
-
-    public ExternalMergesort() throws IOException {
+    public ExternalMergesort(String inputFile, int N, int M, int d, int B) throws IOException {
+        this.M = M;
+        this.N = N;
+        this.d = d;
+        this.B = B;
         int numStreams = (int) Math.ceil((double)N/M);
+
+        //writer = new PrintWriter("visual_output_" + N + ".txt");
+
+
         streams = new ArrayList<>();
         inMemoryInput = new ArrayList<>();
         limits = new ArrayList<>();
 
         //Open required number of streams pointing at the same input file.
         for(int i=0; i<numStreams; i++){
-            InStream is = new InputStream4(INPUTFILE, M);
+            InStream is = new InputStream4(inputFile, 4*M);
             streams.add(is);
             limits.add(i*M);
         }
 
         //Open 1 output stream to be used for writing computed output
-        os = new OutputStream4(INPUTFILE, M);
+        os = new OutputStream4(inputFile, 4*M);
         os.create();
 
         //Read the appropriate part of the input file into the corresponding streams.
@@ -44,8 +54,9 @@ public class ExternalMergesort {
         }
 
         while(streams.size()>1){
-            if(streams.size()>d){
+            if(streams.size()> d){
                 List<InStream> streamsToMerge = new ArrayList<>();
+                List<Integer> limitsToMerge = new ArrayList<>();
 
                 int minPos = Integer.MAX_VALUE;
                 for(int i=0; i<d; i++) {
@@ -53,16 +64,16 @@ public class ExternalMergesort {
                     if(limits.get(0) < minPos){
                         minPos = limits.get(0);
                     }
-                    limits.remove(0);
+                    limitsToMerge.add(limits.remove(0));
 
                     streamsToMerge.add(streams.remove(0));
                 }
-                MultiWayMerge mwm = new MultiWayMerge(streamsToMerge,os, minPos); //merge-sort the d first streams
-                streams.add(new InputStream4(INPUTFILE, M)); //return the merged stream
+                MultiWayMergesort mwm = new MultiWayMergesort(streamsToMerge,limitsToMerge,os, minPos); //merge-sort the d first streams
+                streams.add(new InputStream4(inputFile, 4*M)); //return the merged stream
                 limits.add(minPos); //assign minPos to limits array to match where the stream points at
 
             }else{ //final synchronous step
-                MultiWayMerge mwm = new MultiWayMerge(streams,os, 0); //perform final phase merge-sort.
+                MultiWayMergesort mwm = new MultiWayMergesort(streams, limits, os, 0); //perform final phase merge-sort.
                 closeAllStreams();
                 streams.clear();
             }
@@ -92,6 +103,7 @@ public class ExternalMergesort {
     private void writeBatchToFile() throws IOException {
         for(Integer i : inMemoryInput) {
             os.write(i);
+            //writer.println(i);
         }
         inMemoryInput = new ArrayList<>(); //clear in-memory integers
     }
@@ -105,6 +117,7 @@ public class ExternalMergesort {
             is.close();
         }
         os.close();
+        //writer.close();
     }
 
 }

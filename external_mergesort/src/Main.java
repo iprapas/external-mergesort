@@ -27,16 +27,16 @@ import java.util.ArrayList;
 public class Main {
     private static long startTime;
     private static long endTime;
-
     private static final boolean CMD_RUN = false;
-    private static int IMPLEMENTATION = 2; // 0 = Generate file.
-    private static int BUFFERSIZE = 4*100000;
-    private static int ELEMENTS = 1000000;
+    private static int IMPLEMENTATION = 2;
+    private static int N = 100; //total integers on input
+    private static int M = 10; //memory available
+    private static int d = 5; //total streams we can merge in one go
+    private static int BUFFERSIZE = 4*M;
+
     private static int BENCHMARK=2; // 0 GENERATE FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT
-    private static String FILENAME = "generated_input_"+ ELEMENTS +".txt";
+    private static String FILENAME = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
-
-
     private static InStream is;
     private static OutStream os;
 
@@ -55,19 +55,17 @@ public class Main {
         }
 
         startTime = System.currentTimeMillis();
-
         if (BENCHMARK==0){
             GenerateFile gf = new GenerateFile();
-            gf.generate(FILENAME, ELEMENTS);
+            gf.generate(FILENAME, N);
         } else if (BENCHMARK==1) {
             benchIO();
         } else {
-            ExternalMergesort em = new ExternalMergesort();
-            readAndPrint();
+            ExternalMergesort em = new ExternalMergesort(FILENAME, N, M, d, BUFFERSIZE);
         }
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
-
+        //System.out.println(testCorrectness());
     }
 
     private static void benchIO() throws IOException {
@@ -95,7 +93,6 @@ public class Main {
                 is = inputstreams.get(j);
                 os = outputstreams.get(j);
                 os.write(is.read_next());
-
             }
             i++;
         }
@@ -107,24 +104,22 @@ public class Main {
         }
     }
 
-    private static void readAndPrint() throws IOException {
-        ArrayList<Integer> test = new ArrayList<>();
-        is = new InputStream2(FILENAME);
+    private static boolean testCorrectness() throws IOException {
+        is = new InputStream4(FILENAME, BUFFERSIZE);
         is.open();
+        int pValue = is.read_next();
         while(!is.end_of_stream()){
-            test.add(is.read_next());
+            int value = is.read_next();
+            if(pValue > value){
+                System.out.println(pValue + " " + value);
+                is.close();
+                return false;
+            } else {
+                pValue = value;
+            }
         }
         is.close();
-        System.out.println("0 --> " + test.get(0));
-        System.out.println("1 --> " + test.get(1));
-        System.out.println("100000 --> " + test.get(100000));
-        System.out.println("100001 --> " + test.get(100001));
-        System.out.println("200000 --> " + test.get(200000));
-        System.out.println("200001 --> " + test.get(200001));
-        System.out.println("300000 --> " + test.get(300000));
-        System.out.println("300001 --> " + test.get(300001));
-        System.out.println("400000 --> " + test.get(400000));
-        System.out.println("400001 --> " + test.get(400001));
+        return true;
     }
 
 

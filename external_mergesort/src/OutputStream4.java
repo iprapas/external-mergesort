@@ -8,8 +8,8 @@ public class OutputStream4 extends OutStream{
     private final int bsize;
     private FileChannel fc;
     MappedByteBuffer mem;
-    private long memPos=0;
-    private long runningPos=0;
+    private long memPos;
+    private long runningPos;
     int numInts;
     public OutputStream4(String filepath, int bufferSize){
         path = filepath;
@@ -20,6 +20,8 @@ public class OutputStream4 extends OutStream{
     public void create() throws IOException {
         fc = new RandomAccessFile(path, "rw").getChannel();
         mem =fc.map(FileChannel.MapMode.READ_WRITE, 0,   bsize);
+        runningPos=0;
+        memPos=0;
     }
 
     public void create(int skip) throws IOException {
@@ -27,6 +29,7 @@ public class OutputStream4 extends OutStream{
         fc = new RandomAccessFile(path, "rw").getChannel();
         mem =fc.map(FileChannel.MapMode.READ_WRITE, byteSkip,   bsize);
         memPos = byteSkip;
+        runningPos=0;
     }
 
     @Override

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class MultiWayMerge {
@@ -6,6 +7,8 @@ public class MultiWayMerge {
     private List<InStream> inputStreamList;
     private OutStream output;
     private WBLeftistHeap<Integer> heap;
+
+    private PrintWriter writer;
 
     public MultiWayMerge(List<InStream> inputStreamList, OutStream output, int minPos) throws IOException {
         this.inputStreamList = inputStreamList;
@@ -23,6 +26,7 @@ public class MultiWayMerge {
             heap.deleteMinElement();
 
             output.write(element);
+            writer.println(element);
 
             if (!inputStreamList.get(index).end_of_stream())
                 heap.insert(element);
@@ -36,6 +40,7 @@ public class MultiWayMerge {
 
     private void closeAllStreams() throws IOException {
         output.close();
+        writer.close();
 
         for(InStream stream : inputStreamList)
             stream.close();
