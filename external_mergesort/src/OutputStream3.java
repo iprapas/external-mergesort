@@ -19,7 +19,9 @@ public class OutputStream3 extends OutStream {
 
     @Override
     public void create(int skip) throws IOException {
-
+        os = new FileOutputStream( new File(path ) );
+        bos = new BufferedOutputStream( os , bufferSize);
+        dos = new DataOutputStream( bos );
     }
 
     @Override

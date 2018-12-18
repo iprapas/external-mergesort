@@ -15,7 +15,8 @@ public class OutputStream1 extends OutStream {
 
     @Override
     public void create(int skip) throws IOException {
-
+        os = new FileOutputStream(new File(path));
+        dos = new DataOutputStream(os);
     }
 
     @Override

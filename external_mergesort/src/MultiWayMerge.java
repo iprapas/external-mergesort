@@ -8,7 +8,7 @@ public class MultiWayMerge {
     private OutStream output;
     private WBLeftistHeap<Integer> heap;
 
-    private PrintWriter writer;
+    //private PrintWriter writer;
 
     public MultiWayMerge(List<InStream> inputStreamList, OutStream output, int minPos) throws IOException {
         this.inputStreamList = inputStreamList;
@@ -26,7 +26,7 @@ public class MultiWayMerge {
             heap.deleteMinElement();
 
             output.write(element);
-            writer.println(element);
+            //writer.println(element);
 
             if (!inputStreamList.get(index).end_of_stream())
                 heap.insert(element);
@@ -40,7 +40,7 @@ public class MultiWayMerge {
 
     private void closeAllStreams() throws IOException {
         output.close();
-        writer.close();
+        //writer.close();
 
         for(InStream stream : inputStreamList)
             stream.close();

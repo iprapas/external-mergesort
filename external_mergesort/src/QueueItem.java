@@ -21,7 +21,7 @@ public class QueueItem implements Comparable {
     @Override
     public int compareTo(Object o2) {
         QueueItem item2 = (QueueItem) o2;
-        if(this.getNumber() <= item2.getNumber()){ //first item is smaller
+        if(this.getNumber() < item2.getNumber()){ //first item is smaller
             return -1;
         } else if (this.getNumber() > item2.getNumber()){ //first item is larger
             return 1;

@@ -29,13 +29,13 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2;
-    private static int N = 100; //total integers on input
-    private static int M = 10; //memory available
+    private static int N = 20; //total integers on input
+    private static int M = 2; //memory available
     private static int d = 5; //total streams we can merge in one go
     private static int BUFFERSIZE = 4*M;
 
-    private static int BENCHMARK=2; // 0 GENERATE FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT
-    private static String FILENAME = "generated_input_"+ N +".txt";
+    private static int BENCHMARK=0; // 0 GEN FILE & RUN, 1 I/O TEST
+    private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     private static InStream is;
     private static OutStream os;
@@ -49,7 +49,7 @@ public class Main {
             } else {
                 IMPLEMENTATION = Integer.parseInt(args[0]);
                 BUFFERSIZE = Integer.parseInt(args[1]);
-                FILENAME = args[2];
+                INPUTFILE = args[2];
                 OUTPUTFILENAME = args[3];
             }
         }
@@ -57,11 +57,10 @@ public class Main {
         startTime = System.currentTimeMillis();
         if (BENCHMARK==0){
             GenerateFile gf = new GenerateFile();
-            gf.generate(FILENAME, N);
-        } else if (BENCHMARK==1) {
-            benchIO();
+            gf.generate(INPUTFILE, N);
+            ExternalMergesort em = new ExternalMergesort(INPUTFILE, N, M, d, BUFFERSIZE);
         } else {
-            ExternalMergesort em = new ExternalMergesort(FILENAME, N, M, d, BUFFERSIZE);
+            benchIO();
         }
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
@@ -105,7 +104,7 @@ public class Main {
     }
 
     private static boolean testCorrectness() throws IOException {
-        is = new InputStream4(FILENAME, BUFFERSIZE);
+        is = new InputStream4(INPUTFILE, BUFFERSIZE);
         is.open();
         int pValue = is.read_next();
         while(!is.end_of_stream()){
