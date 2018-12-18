@@ -1,5 +1,21 @@
 public class WriterStream {
     private OutStream os;
+
+    public WriterStream(int implementation, String filepath) {
+        switch (implementation) {
+            case 1:
+                os = new OutputStream1(filepath) {
+                };
+                break;
+            case 2:
+                os = new OutputStream2(filepath);
+                break;
+            default:
+                System.out.println("Please select implementation among [1,4]");
+        }
+    }
+
+
     public WriterStream(int implementation, String filepath, int buffersize) {
         switch (implementation) {
             case 1:
@@ -17,9 +33,6 @@ public class WriterStream {
                 break;
             default:
                 System.out.println("Please select implementation among [1,4]");
-
-//                    GenerateFile gf = new GenerateFile();
-//                    gf.generate(FILENAME, ELEMENTS);
         }
     }
     public OutStream getStream() {

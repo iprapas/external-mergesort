@@ -29,7 +29,7 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2;
-    private static int N = 20; //total integers on input
+    private static int N = 10; //total integers on input
     private static int M = 2; //memory available
     private static int d = 5; //total streams we can merge in one go
     private static int BUFFERSIZE = 4*M;
@@ -56,11 +56,17 @@ public class Main {
 
         startTime = System.currentTimeMillis();
         if (BENCHMARK==0){
+            for(int i=1; i<9; i++) {
+                GenerateFile gf = new GenerateFile();
+                gf.generate("input_" + (int) Math.pow(N,i) + ".txt", (int) Math.pow(N,i));
+            }
+        } else if (BENCHMARK==1) {
+            benchIO();
+        } else {
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
             ExternalMergesort em = new ExternalMergesort(INPUTFILE, N, M, d, BUFFERSIZE);
-        } else {
-            benchIO();
+
         }
         endTime = System.currentTimeMillis();
         System.out.println("Time: " + (endTime - startTime) + "ms");
