@@ -29,12 +29,12 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2;
-    private static int N = 10; //total integers on input
-    private static int M = 2; //memory available
-    private static int d = 5; //total streams we can merge in one go
-    private static int BUFFERSIZE = 4*M;
+    private static int N = 100; //total integers on input
+    private static int M = 10; //memory available
+    private static int d = 2; //total streams we can merge in one go
+    private static int BUFFERSIZE = 4;
 
-    private static int BENCHMARK=0; // 0 GEN FILE & RUN, 1 I/O TEST
+    private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     private static InStream is;
@@ -65,7 +65,7 @@ public class Main {
         } else {
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
-            ExternalMergesort em = new ExternalMergesort(INPUTFILE, N, M, d, BUFFERSIZE);
+            ExternalMergesort2 em = new ExternalMergesort2(INPUTFILE, N, M, d, BUFFERSIZE);
 
         }
         endTime = System.currentTimeMillis();

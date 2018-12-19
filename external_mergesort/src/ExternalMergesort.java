@@ -38,6 +38,8 @@ public class ExternalMergesort {
         os.getStream().create();
 
         //Read the appropriate part of the input file into the corresponding streams.
+        List<ReaderStream> sortedStreams = new ArrayList<>();
+//        sortedStreams = getSortedStreams();
         readSortWriteBatches();
 
         while (streams.size() > 1) {
@@ -81,7 +83,7 @@ public class ExternalMergesort {
         for (ReaderStream is : streams) {
             readBatch(is, id * M);
             Collections.sort(inMemoryInput);
-            writeBatchToFile();
+//            getSortedStream();
             is.getStream().close();
             id++;
         }
