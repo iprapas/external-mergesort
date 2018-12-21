@@ -23,11 +23,11 @@ public class ExternalMergesort2 {
         int numStreams = (int) Math.ceil((double) N / M);
         List<InStream> sortedStreams = new ArrayList<>();
         // Get sortedStreams
-        for (int i=0; i<numStreams; i++) {
+        for (int i = 0; i < numStreams; i++) {
             ReaderStream rs = new ReaderStream(4, inputFile, B);
             InStream is = rs.getStream();
-            is.open(i*M);
-            is = sortStream(is,i);
+            is.open(i * M);
+            is = sortStream(is, i);
             sortedStreams.add(is);
         }
 
@@ -40,13 +40,13 @@ public class ExternalMergesort2 {
     }
 
 
-    public InStream sortStream(InStream is,int i) throws IOException {
-        String mergedFile = String.format(mergedFileFormat,i);
-        WriterStream ws = new WriterStream(3, mergedFile,B);
+    public InStream sortStream(InStream is, int i) throws IOException {
+        String mergedFile = String.format(mergedFileFormat, i);
+        WriterStream ws = new WriterStream(3, mergedFile, B);
 
         List<Integer> l = new ArrayList<>();
-        for (i=0; i<M; i++) {
-            if (!is.end_of_stream()){
+        for (i = 0; i < M; i++) {
+            if (!is.end_of_stream()) {
                 l.add(is.read_next());
             }
         }
@@ -55,11 +55,12 @@ public class ExternalMergesort2 {
         Collections.sort(l);
         OutStream os = ws.getStream();
         os.create();
-        for (i=0;i<l.size(); i++){
+        for (i = 0; i < l.size(); i++) {
             os.write(l.get(i));
         }
         os.close();
         ReaderStream rs = new ReaderStream(4, mergedFile, B);
         return rs.getStream();
     }
+
 }

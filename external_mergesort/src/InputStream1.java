@@ -2,19 +2,20 @@ import java.io.*;
 
 public class InputStream1 extends InStream {
 
-    public InputStream1(String filepath){
+    public InputStream1(String filepath) {
         path = filepath;
     }
 
     @Override
     public void open() throws FileNotFoundException {
-        is = new FileInputStream( new File(path));
+        is = new FileInputStream(new File(path));
         ds = new DataInputStream(is);
     }
 
     @Override
     public void open(int pos) throws IOException {
-
+        open();
+        ds.skipBytes(pos * 4);
     }
 
     @Override
@@ -30,8 +31,7 @@ public class InputStream1 extends InStream {
     @Override
     public void close() throws IOException {
         ds.close();
-        is.close();
     }
 
-
 }
+

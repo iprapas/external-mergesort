@@ -1,5 +1,3 @@
-import java.util.Comparator;
-
 public class QueueItem implements Comparable {
 
     private int streamNum;
@@ -29,4 +27,5 @@ public class QueueItem implements Comparable {
             return 0;
         }
     }
+
 }

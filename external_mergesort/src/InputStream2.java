@@ -4,24 +4,21 @@ public class InputStream2 extends InStream {
 
     private BufferedInputStream bis;
 
-    public InputStream2(String filepath){
+    public InputStream2(String filepath) {
         path = filepath;
     }
 
     @Override
     public void open() throws FileNotFoundException {
-        is = new FileInputStream( new File(path) );
-        bis = new BufferedInputStream( is );
-        ds = new DataInputStream( bis );
+        is = new FileInputStream(new File(path));
+        bis = new BufferedInputStream(is);
+        ds = new DataInputStream(bis);
     }
 
     @Override
     public void open(int pos) throws IOException {
-        is = new FileInputStream( new File(path) );
-        bis = new BufferedInputStream( is );
-        ds = new DataInputStream( bis );
-        ds.skipBytes(pos*4);
-
+        open();
+        ds.skipBytes(pos * 4);
     }
 
     @Override
@@ -36,8 +33,6 @@ public class InputStream2 extends InStream {
 
     @Override
     public void close() throws IOException {
-        ds.close();
         bis.close();
-        is.close();
     }
 }

@@ -1,7 +1,8 @@
-import java.io.IOException;
-
 public class ReaderStream {
+
     private InStream is;
+
+
     public ReaderStream(int implementation, String filepath, int buffersize) {
         switch (implementation) {
             case 1:
@@ -18,12 +19,11 @@ public class ReaderStream {
                 break;
             default:
                 System.out.println("Please select implementation among [1,4]");
-
-//                    GenerateFile gf = new GenerateFile();
-//                    gf.generate(FILENAME, ELEMENTS);
         }
     }
+
     public InStream getStream() {
-        return is;
+         return is;
     }
+
 }

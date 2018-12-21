@@ -1,6 +1,13 @@
 public class WriterStream {
+
     private OutStream os;
 
+    /**
+     * Used for Implementation 1,2 because they don't need a buffer argument.
+     *
+     * @param implementation
+     * @param filepath
+     */
     public WriterStream(int implementation, String filepath) {
         switch (implementation) {
             case 1:
@@ -15,7 +22,13 @@ public class WriterStream {
         }
     }
 
-
+    /**
+     * Used for Implementation 3,4 as they need a buffer argument.
+     *
+     * @param implementation
+     * @param filepath
+     * @param buffersize
+     */
     public WriterStream(int implementation, String filepath, int buffersize) {
         switch (implementation) {
             case 1:
@@ -35,7 +48,9 @@ public class WriterStream {
                 System.out.println("Please select implementation among [1,4]");
         }
     }
+
     public OutStream getStream() {
         return os;
     }
+
 }

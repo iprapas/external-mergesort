@@ -1,15 +1,11 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.IOException;
-import java.io.ObjectOutput;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
-import java.util.concurrent.TimeUnit;
 
 public class MultiwayMerge2 {
-    private List<InStream> inStreams = new ArrayList<>();
+    private List<InStream> inStreams;
     private int d;
     private int B;
     private static int lalala = 0;
@@ -19,17 +15,18 @@ public class MultiwayMerge2 {
         this.d = d;
         this.B = B;
     }
+
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt",lalala++);
-        PrintWriter writer = new PrintWriter(mwMergedFile+"visual.txt");
-        WriterStream ws = new WriterStream(3,mwMergedFile,B);
+        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", lalala++);
+        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
+        WriterStream ws = new WriterStream(3, mwMergedFile, B);
         OutStream os = ws.getStream();
         os.create();
-        int count=0;
+        int count = 0;
         // take first d streams
         InStream is;
-        for (int i=0; i<d; i++) {
+        for (int i = 0; i < d; i++) {
             is = inStreams.remove(0);
             is.open();
             dStreams.add(is);
@@ -37,9 +34,9 @@ public class MultiwayMerge2 {
         PriorityQueue<QueueItem> heap = new PriorityQueue<>();
         QueueItem qItem;
         // read one element from each stream and put it into the queue
-        for (int i=0; i<d; i++) {
+        for (int i = 0; i < d; i++) {
             is = dStreams.get(i);
-            qItem = new QueueItem(i,is.read_next());
+            qItem = new QueueItem(i, is.read_next());
             heap.add(qItem);
         }
         int sNum;
@@ -55,7 +52,7 @@ public class MultiwayMerge2 {
             }
         }
         os.close();
-        InStream temp =  new ReaderStream(4, mwMergedFile, B).getStream();
+        InStream temp = new ReaderStream(4, mwMergedFile, B).getStream();
         inStreams.add(temp);
 //        System.out.println(count + " filesize " + temp.getFileSize());
         writer.close();
@@ -75,9 +72,9 @@ public class MultiwayMerge2 {
 //            System.out.println(count);
 //        }
 //        return;
-        List<InStream> dStreams = new ArrayList<>();
+        List<InStream> dStreams;
         String mwMergedFile = "final_output/output.txt";
-        WriterStream ws = new WriterStream(3,mwMergedFile,B);
+        WriterStream ws = new WriterStream(3, mwMergedFile, B);
         PrintWriter writer = new PrintWriter("final_output/visual_output.txt");
         OutStream os = ws.getStream();
         os.create();
@@ -85,11 +82,11 @@ public class MultiwayMerge2 {
 
         PriorityQueue<QueueItem> heap = new PriorityQueue<>();
         QueueItem qItem;
-        int count=0;
+        int count = 0;
         int count_added = 0;
-        for (int i=0; i<dStreams.size(); i++) {
+        for (int i = 0; i < dStreams.size(); i++) {
             dStreams.get(i).open();
-            qItem = new QueueItem(i,dStreams.get(i).read_next());
+            qItem = new QueueItem(i, dStreams.get(i).read_next());
             heap.add(qItem);
             count_added++;
         }
@@ -103,8 +100,8 @@ public class MultiwayMerge2 {
                 count_added++;
             }
         }
-        System.out.println("Final output written in "+ mwMergedFile);
-        System.out.println(count+ " " + count_added);
+        System.out.println("Final output written in " + mwMergedFile);
+        System.out.println(count + " " + count_added);
         writer.close();
         os.close();
         return;

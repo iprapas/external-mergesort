@@ -29,10 +29,10 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2;
-    private static int N = 100; //total integers on input
-    private static int M = 10; //memory available
-    private static int d = 2; //total streams we can merge in one go
-    private static int BUFFERSIZE = 4;
+    private static int N = 10000000; //total integers on input
+    private static int M = 100000; //memory available
+    private static int d = 1000; //total streams we can merge in one go
+    private static int BUFFERSIZE = 4 * 1024;
 
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";

@@ -2,9 +2,8 @@ import java.io.*;
 
 public class OutputStream1 extends OutStream {
 
-    public OutputStream1(String filepath){
+    public OutputStream1(String filepath) {
         path = filepath;
-
     }
 
     @Override
@@ -15,8 +14,7 @@ public class OutputStream1 extends OutStream {
 
     @Override
     public void create(int skip) throws IOException {
-        os = new FileOutputStream(new File(path));
-        dos = new DataOutputStream(os);
+        create();
     }
 
     @Override
@@ -27,6 +25,6 @@ public class OutputStream1 extends OutStream {
     @Override
     public void close() throws IOException {
         dos.close();
-        os.close();
     }
+
 }
