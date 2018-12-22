@@ -23,7 +23,7 @@ public class InputStream4 extends InStream{
     public void open() throws IOException {
         fc = new RandomAccessFile(path, "r").getChannel();
         fileSize = fc.size();
-        System.out.println(path + " filesize: " + fileSize);
+//        System.out.println(path + " filesize: " + fileSize);
         mem =fc.map(FileChannel.MapMode.READ_ONLY, 0, bsize);
         memPos= 0;
         runningPos=0;

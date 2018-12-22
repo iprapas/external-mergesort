@@ -1,5 +1,9 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Université Libre de Bruxelles (ULB)
@@ -29,12 +33,12 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = false;
     private static int IMPLEMENTATION = 2;
-    private static int N = 100; //total integers on input
-    private static int M = 10; //memory available
-    private static int d = 2; //total streams we can merge in one go
-    private static int BUFFERSIZE = 4;
+    private static int N = 10000000; //total integers on input
+    private static int M = 100000; //memory available
+    private static int d = 10; //total streams we can merge in one go
+    private static int BUFFERSIZE = 4*1000;
 
-    private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
+    private static int BENCHMARK=3; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     private static InStream is;
@@ -54,7 +58,6 @@ public class Main {
             }
         }
 
-        startTime = System.currentTimeMillis();
         if (BENCHMARK==0){
             for(int i=1; i<9; i++) {
                 GenerateFile gf = new GenerateFile();
@@ -62,10 +65,36 @@ public class Main {
             }
         } else if (BENCHMARK==1) {
             benchIO();
-        } else {
+        } else if (BENCHMARK==2) {
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
+            System.out.println("File Generated");
+            startTime = System.currentTimeMillis();
+
             ExternalMergesort2 em = new ExternalMergesort2(INPUTFILE, N, M, d, BUFFERSIZE);
+
+        } else if (BENCHMARK==3) {
+            GenerateFile gf = new GenerateFile();
+            gf.generate(INPUTFILE, N);
+            startTime = System.currentTimeMillis();
+            ReaderStream rs = new ReaderStream(4,INPUTFILE, BUFFERSIZE);
+            InStream is = rs.getStream();
+            is.open();
+            List<Integer> l = new ArrayList<Integer>();
+            while (!is.end_of_stream()) {
+                l.add(is.read_next());
+            }
+            is.close();
+            long start = System.currentTimeMillis();
+            Collections.sort(l);
+            System.out.println(System.currentTimeMillis() - start + " ms (Internal)");
+            WriterStream ws = new WriterStream(3,OUTPUTFILENAME, BUFFERSIZE );
+            OutStream os = ws.getStream();
+            os.create();
+            for (int n:l) {
+                os.write(n);
+            }
+            os.close();
 
         }
         endTime = System.currentTimeMillis();

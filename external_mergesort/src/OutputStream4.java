@@ -4,17 +4,22 @@ import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
+import static java.lang.Long.min;
+
 public class OutputStream4 extends OutStream{
     private final int bsize;
     private FileChannel fc;
     MappedByteBuffer mem;
     private long memPos;
+    private int fileSize;
     private long runningPos;
     int numInts;
     public OutputStream4(String filepath, int bufferSize){
         path = filepath;
         bsize = bufferSize;
     }
+
+
 
     @Override
     public void create() throws IOException {
@@ -46,6 +51,7 @@ public class OutputStream4 extends OutStream{
 
     @Override
     public void close() throws IOException {
+        fc.close();
         return;
     }
 }

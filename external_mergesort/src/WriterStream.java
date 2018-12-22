@@ -35,6 +35,7 @@ public class WriterStream {
                 System.out.println("Please select implementation among [1,4]");
         }
     }
+
     public OutStream getStream() {
         return os;
     }
