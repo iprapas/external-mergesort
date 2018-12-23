@@ -8,10 +8,6 @@ public class ExternalMergesort2 {
     private int N; //total number of integers
     private int d; //total streams we can merge in one go
     private int B; //size of buffer (for I/Os) 4*M
-
-    private List<ReaderStream> streams;
-    private List<Integer> limits;
-    private List<Integer> inMemoryInput;
     private String mergedFileFormat = "merged/merged%d.txt";
 
     public ExternalMergesort2(String inputFile, int N, int M, int d, int B) throws IOException {

@@ -3,16 +3,15 @@ import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
-public class OutputStream4 extends OutStream {
 
+public class OutputStream4 extends OutStream{
     private final int bsize;
     private FileChannel fc;
     private MappedByteBuffer mem;
     private long memPos;
     private long runningPos;
 
-
-    public OutputStream4(String filepath, int bufferSize) {
+    public OutputStream4(String filepath, int bufferSize){
         path = filepath;
         bsize = bufferSize;
     }
@@ -25,6 +24,7 @@ public class OutputStream4 extends OutStream {
         memPos = 0;
     }
 
+    @Override
     public void create(int skip) throws IOException {
         int byteSkip = skip * 4;
         fc = new RandomAccessFile(path, "rw").getChannel();
@@ -35,7 +35,6 @@ public class OutputStream4 extends OutStream {
 
     @Override
     public void write(int element) throws IOException {
-
         if (runningPos >= mem.limit()) {
             mem = fc.map(FileChannel.MapMode.READ_WRITE, memPos, bsize);
             runningPos = 0;
@@ -47,11 +46,10 @@ public class OutputStream4 extends OutStream {
 
     @Override
     public void close() throws IOException {
-        mem = null;
+        mem = null; //MappedByteBuffer
         System.gc();
-        fc.truncate(memPos);
+        fc.truncate(memPos); //FileChannel
         fc.close();
-        return;
     }
 
 }
