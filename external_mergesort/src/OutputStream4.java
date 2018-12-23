@@ -47,6 +47,10 @@ public class OutputStream4 extends OutStream {
 
     @Override
     public void close() throws IOException {
+        mem = null;
+        System.gc();
+        fc.truncate(memPos);
+        fc.close();
         return;
     }
 

@@ -22,9 +22,9 @@ public class InputStream4 extends InStream {
 
     @Override
     public void open() throws IOException {
-        fc = new RandomAccessFile(path, "r").getChannel();
+        fc = new RandomAccessFile(path, "rw").getChannel();
         fileSize = fc.size();
-        System.out.println(path + " filesize: " + fileSize);
+        //System.out.println(path + " filesize: " + fileSize);
         mem = fc.map(FileChannel.MapMode.READ_ONLY, 0, bsize);
         memPos = 0;
         runningPos = 0;
@@ -33,7 +33,7 @@ public class InputStream4 extends InStream {
     @Override
     public void open(int skip) throws IOException {
         int byteSkip = skip * 4;
-        fc = new RandomAccessFile(path, "r").getChannel();
+        fc = new RandomAccessFile(path, "rw").getChannel();
         fileSize = fc.size();
         mem = fc.map(FileChannel.MapMode.READ_ONLY, byteSkip, bsize);
         memPos = byteSkip;
