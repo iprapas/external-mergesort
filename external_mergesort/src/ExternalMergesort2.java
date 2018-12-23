@@ -42,7 +42,7 @@ public class ExternalMergesort2 {
 
     public InStream sortStream(InStream is,int i) throws IOException {
         String mergedFile = String.format(mergedFileFormat,i);
-        WriterStream ws = new WriterStream(3, mergedFile,B);
+        WriterStream ws = new WriterStream(4, mergedFile,B);
 
         List<Integer> l = new ArrayList<>();
         for (i=0; i<M; i++) {

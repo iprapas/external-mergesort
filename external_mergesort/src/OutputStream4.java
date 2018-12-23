@@ -51,7 +51,9 @@ public class OutputStream4 extends OutStream{
 
     @Override
     public void close() throws IOException {
+        mem = null; //MappedByteBuffer
+        System.gc();
+        fc.truncate(memPos); //FileChannel
         fc.close();
-        return;
     }
 }
