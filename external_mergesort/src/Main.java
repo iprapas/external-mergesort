@@ -34,8 +34,8 @@ public class Main {
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static int BUFFERSIZE = 4* 1024;
     private static int N = 1000; //total integers on input
-    private static int M = 1000; //memory available
-    private static int d = 100; //total streams we can merge in one go
+    private static int M = 100; //memory available
+    private static int d = 10; //total streams we can merge in one go
     private static int K = 30; // number of streams
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";

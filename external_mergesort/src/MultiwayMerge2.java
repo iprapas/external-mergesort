@@ -19,7 +19,7 @@ public class MultiwayMerge2 {
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
         String mwMergedFile = String.format("mwmerged/mwmerged%d.txt",lalala++);
-        PrintWriter writer = new PrintWriter(mwMergedFile+"visual.txt");
+        PrintWriter writer = new PrintWriter("visual_" + mwMergedFile);
         WriterStream ws = new WriterStream(4,mwMergedFile,B);
         OutStream os = ws.getStream();
         os.create();
@@ -44,7 +44,7 @@ public class MultiwayMerge2 {
             qItem = heap.remove();
             count++;
             os.write(qItem.getNumber());
-            //writer.println(qItem.getNumber());
+            writer.println(qItem.getNumber());
             sNum = qItem.getStreamNum();
             is = dStreams.get(sNum);
             if (!is.end_of_stream()) {
@@ -54,7 +54,7 @@ public class MultiwayMerge2 {
         os.close();
         InStream temp = new ReaderStream(4, mwMergedFile, B).getStream();
         inStreams.add(temp);
-        //writer.close();
+        writer.close();
         return;
     }
 
@@ -62,7 +62,7 @@ public class MultiwayMerge2 {
         List<InStream> dStreams;
         String mwMergedFile = "final_output/output.txt";
         WriterStream ws = new WriterStream(3, mwMergedFile, B);
-        //PrintWriter writer = new PrintWriter("final_output/visual_output.txt");
+        PrintWriter writer = new PrintWriter("final_output/visual_output.txt");
         OutStream os = ws.getStream();
         os.create();
         dStreams = inStreams;
@@ -81,7 +81,7 @@ public class MultiwayMerge2 {
             qItem = heap.remove();
             count++;
             os.write(qItem.getNumber());
-            //writer.println(qItem.getNumber());
+            writer.println(qItem.getNumber());
             if (!dStreams.get(qItem.getStreamNum()).end_of_stream()) {
                 heap.add(new QueueItem(qItem.getStreamNum(), dStreams.get(qItem.getStreamNum()).read_next()));
                 count_added++;
@@ -89,7 +89,7 @@ public class MultiwayMerge2 {
         }
         System.out.println("Final output written in " + mwMergedFile);
         System.out.println(count + " " + count_added);
-        //writer.close();
+        writer.close();
         os.close();
         return;
 
