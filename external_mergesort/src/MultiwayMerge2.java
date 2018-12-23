@@ -8,7 +8,7 @@ public class MultiwayMerge2 {
     private List<InStream> inStreams;
     private int d;
     private int B;
-    private static int lalala = 0;
+    private int partNum = 0;
 
     public MultiwayMerge2(List<InStream> inStreams, int d, int B) throws IOException {
         this.inStreams = inStreams;
@@ -18,9 +18,9 @@ public class MultiwayMerge2 {
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt",lalala++);
-        PrintWriter writer = new PrintWriter("visual_" + mwMergedFile);
-        WriterStream ws = new WriterStream(4,mwMergedFile,B);
+        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", partNum++);
+        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
+        WriterStream ws = new WriterStream(3, mwMergedFile, B);
         OutStream os = ws.getStream();
         os.create();
         int count = 0;

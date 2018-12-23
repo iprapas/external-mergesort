@@ -6,39 +6,38 @@ import java.util.List;
 /**
  * Université Libre de Bruxelles (ULB)
  * Master Program in Big Data Management & Analytics (BDMA)
- *
+ * <p>
  * Course: Database Systems Architecture
  * Project Assignment: Algorithms in Secondary Memory
- *
+ * <p>
  * Authors:
  * Sokratis Papadopoulos (000476296)
  * Ioannis Prapas (000473813)
  * Carlos Martinez Lorenzo (000477671)
- *
+ * <p>
  * Date: January 2019
- *
+ * <p>
  * In this assignment we are asked to implement an external-memory merge-sort algorithm
  * and examine its performance under different parameters.
- *
+ * <p>
  * As a warm-up exercise we explore several different ways to read data from,
  * and write data to secondary memory. The overall goal of the assignment
  * is to get real-world experience with the performance of external-memory algorithms.
- *
  */
 
 public class Main {
     private static final boolean CMD_RUN = false;
     private static long startTime;
     private static long endTime;
-    private static int IMPLEMENTATION = 2;
-    private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
-    private static int BUFFERSIZE = 4* 1024;
-    private static int N = 1000; //total integers on input
-    private static int M = 100; //memory available
-    private static int d = 10; //total streams we can merge in one go
+    private static int IMPLEMENTATION = 1;
+    private static int BENCHMARK = 2; // 0 GEN FILES, 1 I/O TEST, 2 EXT MERGE, 3 IN-MEM MERGE
+    private static int BUFFERSIZE = 8 * 1024;
+    private static int N = 1000000; //total integers on input
+    private static int M = 1000; //memory available
+    private static int d = 100; //total streams we can merge in one go
     private static int K = 30; // number of streams
-    private static String INPUTFILE = "generated_input_"+ N +".txt";
-    private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
+    private static String INPUTFILE = "generated_input_" + N + ".txt";
+    private static String OUTPUTFILENAME = "output_implementation_" + IMPLEMENTATION + ".txt";
     private static String OUTFILE = "final_output/output.txt";
     private static InStream is;
     private static OutStream os;
@@ -57,15 +56,15 @@ public class Main {
             }
         }
 
-        if (BENCHMARK == 0) {
-            for (int i = 1; i <= 30; i++) {
+        if (BENCHMARK == 0) { //generate 8 input files with 10 100 1000 10000 ... 10m integers
+            for (int i = 1; i <= 8; i++) {
                 GenerateFile gf = new GenerateFile();
-                gf.generate("input_" + (int) Math.pow(N, i) + ".txt", (int) Math.pow(N, i));
+                gf.generate("input_" + (int) Math.pow(10, i) + ".txt", (int) Math.pow(10, i));
             }
-        } else if (BENCHMARK == 1) {
+        } else if (BENCHMARK == 1) { //benchmark the 4 read/write implementations
 
             //create 30 input files of size N -not timed.
-            for (int i = 1; i <= 30; i++) {
+            for (int i = 1; i <= K; i++) {
                 GenerateFile gf = new GenerateFile();
                 gf.generate("input/input_" + i + ".txt", N);
             }
@@ -79,7 +78,7 @@ public class Main {
             }
             System.out.println("AVG(" + IMPLEMENTATION + "): " + getAverage(times) + "ms on N=" + N + ", B=" + BUFFERSIZE + ", k=" + K);
 
-        } else if (BENCHMARK==2){ //external mergesort
+        } else if (BENCHMARK == 2) { //external mergesort
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
             System.out.println("File Generated");
@@ -90,11 +89,11 @@ public class Main {
             System.out.println("Time: " + (endTime - startTime) + "ms");
             System.out.println(testCorrectness());
 
-        } else if (BENCHMARK==3) { //in memory sort
+        } else if (BENCHMARK == 3) { //in memory sort
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
             startTime = System.currentTimeMillis();
-            ReaderStream rs = new ReaderStream(4,INPUTFILE, BUFFERSIZE);
+            ReaderStream rs = new ReaderStream(4, INPUTFILE, BUFFERSIZE);
             InStream is = rs.getStream();
             is.open();
             List<Integer> l = new ArrayList<>();
@@ -105,22 +104,20 @@ public class Main {
             long start = System.currentTimeMillis();
             Collections.sort(l);
             System.out.println(System.currentTimeMillis() - start + " ms (Internal)");
-            WriterStream ws = new WriterStream(3,OUTPUTFILENAME, BUFFERSIZE );
+            WriterStream ws = new WriterStream(3, OUTPUTFILENAME, BUFFERSIZE);
             OutStream os = ws.getStream();
             os.create();
-            for (int n:l) {
+            for (int n : l) {
                 os.write(n);
             }
             os.close();
-
         }
-        endTime = System.currentTimeMillis();
-        System.out.println("Time: " + (endTime - startTime) + "ms");
 
     }
 
     /**
      * Returns the average value of an arraylist of long numbers.
+     *
      * @param times
      * @return
      */
