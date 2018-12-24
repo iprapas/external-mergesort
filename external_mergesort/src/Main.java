@@ -33,15 +33,15 @@ public class Main {
 
     public static int IMPLEMENTATION = 2;
     public static int R_IMPLEMENTATION = 4;
-    public static int W_IMPLEMENTATION = 3;
+    public static int W_IMPLEMENTATION = 4;
     private static int N = 10000000; //total integers on input
     private static int M = 100000; //memory available
     private static int d = 100; //total streams we can merge in one go
     private static int K = 30; // number of streams
 
-    private static int BUFFERSIZE = 4*10000;
+    private static int BUFFERSIZE = 4*1000000;
 
-    private static int BENCHMARK=3; // 0 GEN FILE & RUN, 1 I/O TEST
+    private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     private static String OUTFILE = "final_output/output.txt";

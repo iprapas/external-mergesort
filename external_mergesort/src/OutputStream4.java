@@ -46,9 +46,11 @@ public class OutputStream4 extends OutStream{
 
     @Override
     public void close() throws IOException {
-        mem = null; //MappedByteBuffer
-        //System.gc();
-        //fc.truncate(memPos); //FileChannel
+        if (mem instanceof sun.nio.ch.DirectBuffer) {
+            sun.misc.Cleaner cleaner = ((sun.nio.ch.DirectBuffer) mem).cleaner();
+            cleaner.clean();
+        }
+        fc.truncate(memPos); //FileChannel
         fc.close();
     }
 
