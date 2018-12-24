@@ -52,14 +52,37 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         if (CMD_RUN) {
-            if (args.length != 4) {
-                System.out.println("Please enter 4 arguments: <IO implementation> <buffersize> <infile> <outfile> ");
+            if (args.length < 1) {
+                System.out.println("Please enter 4 arguments: <0,1,2,3> <IO implementation> <buffersize> <N> <M> <D> ");
                 System.exit(0);
             } else {
-                IMPLEMENTATION = Integer.parseInt(args[0]);
-                BUFFERSIZE = Integer.parseInt(args[1]);
-                INPUTFILE = args[2];
-                OUTPUTFILENAME = args[3];
+                BENCHMARK = Integer.parseInt(args[0]);
+                if (BENCHMARK==1) {
+                    if (args.length!= 4) {
+                        System.out.println("Please enter 4 arguments: <0,1,2,3> <IO implementation> <buffersize> <K Streams>");
+                        System.exit(0);
+                    }
+                    IMPLEMENTATION = Integer.parseInt(args[1]);
+                    BUFFERSIZE = Integer.parseInt(args[2]);
+                    K = Integer.parseInt(args[3]);
+
+                }
+                else if (BENCHMARK == 2) {
+                    if (args.length!= 8) {
+                        System.out.println("Please enter 4 arguments: <Bench 0,1,2,3> <IO implementation> <buffersize> <N numbers> <M memory> <Dway merge> <inputfile> <outfile>");
+                        System.exit(0);
+                    }
+                    IMPLEMENTATION = Integer.parseInt(args[1]);
+                    R_IMPLEMENTATION = IMPLEMENTATION;
+                    W_IMPLEMENTATION = IMPLEMENTATION;
+                    BUFFERSIZE = Integer.parseInt(args[2]);
+                    N = Integer.parseInt(args[3]);
+                    M = Integer.parseInt(args[4]);
+                    d = Integer.parseInt(args[5]);
+                    INPUTFILE = args[6];
+                    OUTFILE = args[7];
+                }
+
             }
         }
 
