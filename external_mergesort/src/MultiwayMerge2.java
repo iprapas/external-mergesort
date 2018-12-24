@@ -9,6 +9,8 @@ public class MultiwayMerge2 {
     private int d;
     private int B;
     private int partNum = 0;
+    private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
+    private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
 
     public MultiwayMerge2(List<InStream> inStreams, int d, int B) throws IOException {
         this.inStreams = inStreams;
@@ -20,7 +22,7 @@ public class MultiwayMerge2 {
         List<InStream> dStreams = new ArrayList<>();
         String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", partNum++);
         PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
-        WriterStream ws = new WriterStream(3, mwMergedFile, B);
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
         OutStream os = ws.getStream();
         os.create();
         int count = 0;
@@ -52,7 +54,7 @@ public class MultiwayMerge2 {
             }
         }
         os.close();
-        InStream temp = new ReaderStream(4, mwMergedFile, B).getStream();
+        InStream temp =  new ReaderStream(R_IMPLEMENTATION, mwMergedFile, B).getStream();
         inStreams.add(temp);
         writer.close();
         return;
@@ -61,7 +63,7 @@ public class MultiwayMerge2 {
     public void finalMerge() throws IOException {
         List<InStream> dStreams;
         String mwMergedFile = "final_output/output.txt";
-        WriterStream ws = new WriterStream(3, mwMergedFile, B);
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
         PrintWriter writer = new PrintWriter("final_output/visual_output.txt");
         OutStream os = ws.getStream();
         os.create();

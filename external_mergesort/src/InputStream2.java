@@ -17,7 +17,11 @@ public class InputStream2 extends InStream {
 
     @Override
     public void open(int pos) throws IOException {
-        open();
+        is = new FileInputStream( new File(path) );
+        bis = new BufferedInputStream( is );
+        ds = new DataInputStream( bis );
+        ds.skipBytes(4*pos);
+
         ds.skipBytes(pos * 4);
     }
 

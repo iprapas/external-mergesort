@@ -6,38 +6,44 @@ import java.util.List;
 /**
  * Université Libre de Bruxelles (ULB)
  * Master Program in Big Data Management & Analytics (BDMA)
- * <p>
+ *
  * Course: Database Systems Architecture
  * Project Assignment: Algorithms in Secondary Memory
- * <p>
+ *
  * Authors:
  * Sokratis Papadopoulos (000476296)
  * Ioannis Prapas (000473813)
  * Carlos Martinez Lorenzo (000477671)
- * <p>
+ *
  * Date: January 2019
- * <p>
+ *
  * In this assignment we are asked to implement an external-memory merge-sort algorithm
  * and examine its performance under different parameters.
- * <p>
+ *
  * As a warm-up exercise we explore several different ways to read data from,
  * and write data to secondary memory. The overall goal of the assignment
  * is to get real-world experience with the performance of external-memory algorithms.
+ *
  */
 
 public class Main {
-    private static final boolean CMD_RUN = false;
     private static long startTime;
     private static long endTime;
-    private static int IMPLEMENTATION = 1;
-    private static int BENCHMARK = 2; // 0 GEN FILES, 1 I/O TEST, 2 EXT MERGE, 3 IN-MEM MERGE
-    private static int BUFFERSIZE = 8 * 1024;
-    private static int N = 1000000; //total integers on input
-    private static int M = 1000; //memory available
+    private static final boolean CMD_RUN = false;
+
+    public static int IMPLEMENTATION = 2;
+    public static int R_IMPLEMENTATION = 4;
+    public static int W_IMPLEMENTATION = 3;
+    private static int N = 10000000; //total integers on input
+    private static int M = 100000; //memory available
     private static int d = 100; //total streams we can merge in one go
     private static int K = 30; // number of streams
-    private static String INPUTFILE = "generated_input_" + N + ".txt";
-    private static String OUTPUTFILENAME = "output_implementation_" + IMPLEMENTATION + ".txt";
+
+    private static int BUFFERSIZE = 4*10000;
+
+    private static int BENCHMARK=3; // 0 GEN FILE & RUN, 1 I/O TEST
+    private static String INPUTFILE = "generated_input_"+ N +".txt";
+    private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     private static String OUTFILE = "final_output/output.txt";
     private static InStream is;
     private static OutStream os;

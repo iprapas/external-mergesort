@@ -20,9 +20,10 @@ public class InputStream3 extends InStream {
 
     @Override
     public void open(int pos) throws IOException {
-        is = new FileInputStream(new File(path));
-        bis = new BufferedInputStream(is, bufferSize);
+        is = new FileInputStream( new File(path));
+        bis = new BufferedInputStream( is, bufferSize);
         ds = new DataInputStream(bis);
+        ds.skipBytes(4*pos);
     }
 
     @Override
@@ -40,5 +41,4 @@ public class InputStream3 extends InStream {
         ds.close();
         is.close();
     }
-
 }

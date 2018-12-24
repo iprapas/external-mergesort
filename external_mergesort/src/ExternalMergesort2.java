@@ -8,8 +8,10 @@ public class ExternalMergesort2 {
     private int N; //total number of integers
     private int d; //total streams we can merge in one go
     private int B; //size of buffer (for I/Os) 4*M
-    private String mergedFileFormat = "merged/merged%d.txt";
 
+    private String mergedFileFormat = "merged/merged%d.txt";
+    private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
+    private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
     public ExternalMergesort2(String inputFile, int N, int M, int d, int B) throws IOException {
         this.M = M;
         this.N = N;
@@ -20,7 +22,7 @@ public class ExternalMergesort2 {
         List<InStream> sortedStreams = new ArrayList<>();
         // Get sortedStreams
         for (int i = 0; i < numStreams; i++) {
-            ReaderStream rs = new ReaderStream(4, inputFile, B);
+            ReaderStream rs = new ReaderStream(R_IMPLEMENTATION, inputFile, B);
             InStream is = rs.getStream();
             is.open(i * M);
             is = sortStream(is, i);
@@ -36,9 +38,9 @@ public class ExternalMergesort2 {
     }
 
 
-    public InStream sortStream(InStream is, int i) throws IOException {
-        String mergedFile = String.format(mergedFileFormat, i);
-        WriterStream ws = new WriterStream(3, mergedFile, B);
+    public InStream sortStream(InStream is,int i) throws IOException {
+        String mergedFile = String.format(mergedFileFormat,i);
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION, mergedFile,B);
 
         List<Integer> l = new ArrayList<>();
         for (i = 0; i < M; i++) {
@@ -55,7 +57,7 @@ public class ExternalMergesort2 {
             os.write(l.get(i));
         }
         os.close();
-        ReaderStream rs = new ReaderStream(4, mergedFile, B);
+        ReaderStream rs = new ReaderStream(R_IMPLEMENTATION, mergedFile, B);
         return rs.getStream();
     }
 
