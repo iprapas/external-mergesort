@@ -35,7 +35,7 @@ public class InputStream4 extends InStream {
         int byteSkip = skip*4;
         fc = new RandomAccessFile(path, "rw").getChannel();
         fileSize = fc.size();
-        mem =fc.map(FileChannel.MapMode.READ_ONLY, byteSkip, min(fileSize-byteSkip,bsize-byteSkip));
+        mem =fc.map(FileChannel.MapMode.READ_ONLY, byteSkip, min(fileSize-byteSkip,bsize));
         memPos= byteSkip;
         runningPos=0;
     }

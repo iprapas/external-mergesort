@@ -35,11 +35,11 @@ public class Main {
     public static int R_IMPLEMENTATION = 4;
     public static int W_IMPLEMENTATION = 4;
     private static int N = 1000; //total integers on input
-    public static int M = 12; //memory available
-    private static int d = 50; //total streams we can merge in one go
+    public static int M = 100; //memory available
+    private static int d = 100; //total streams we can merge in one go
     private static int K = 30; // number of streams
 
-    private static int BUFFERSIZE = 4*1000;
+    private static int BUFFERSIZE = 400;
 
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
