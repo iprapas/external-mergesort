@@ -8,7 +8,7 @@ public class MultiwayMerge2 {
     private List<InStream> inStreams;
     private int d;
     private int B;
-    private int partNum = 0;
+    private int mwCount = 0;
     private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
     private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
 
@@ -20,12 +20,11 @@ public class MultiwayMerge2 {
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", partNum++);
-        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
+        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", mwCount++);
+//        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
         WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
         OutStream os = ws.getStream();
         os.create();
-        int count = 0;
         // take first d streams
         InStream is;
         for (int i = 0; i < d; i++) {
@@ -44,9 +43,8 @@ public class MultiwayMerge2 {
         int sNum;
         while (!heap.isEmpty()) {
             qItem = heap.remove();
-            count++;
             os.write(qItem.getNumber());
-            writer.println(qItem.getNumber());
+//            writer.println(qItem.getNumber());
             sNum = qItem.getStreamNum();
             is = dStreams.get(sNum);
             if (!is.end_of_stream()) {
@@ -56,15 +54,16 @@ public class MultiwayMerge2 {
         os.close();
         InStream temp =  new ReaderStream(R_IMPLEMENTATION, mwMergedFile, B).getStream();
         inStreams.add(temp);
-        writer.close();
+//        writer.close();
         return;
     }
 
     public void finalMerge() throws IOException {
         List<InStream> dStreams;
-        String mwMergedFile = "final_output/output.txt";
-        WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
-        PrintWriter writer = new PrintWriter("final_output/visual_output.txt");
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION,Main.OUTFILE,B);
+
+//        PrintWriter writer = new PrintWriter(Main.OUTFILE + "visual.txt");
+
         OutStream os = ws.getStream();
         os.create();
         dStreams = inStreams;
@@ -72,29 +71,24 @@ public class MultiwayMerge2 {
         PriorityQueue<QueueItem> heap = new PriorityQueue<>();
         QueueItem qItem;
         int count = 0;
-        int count_added = 0;
         for (int i = 0; i < dStreams.size(); i++) {
             dStreams.get(i).open();
             qItem = new QueueItem(i, dStreams.get(i).read_next());
             heap.add(qItem);
-            count_added++;
         }
         while (!heap.isEmpty()) {
             qItem = heap.remove();
             count++;
             os.write(qItem.getNumber());
-            writer.println(qItem.getNumber());
+//            writer.println(qItem.getNumber());
             if (!dStreams.get(qItem.getStreamNum()).end_of_stream()) {
                 heap.add(new QueueItem(qItem.getStreamNum(), dStreams.get(qItem.getStreamNum()).read_next()));
-                count_added++;
             }
         }
-        System.out.println("Final output written in " + mwMergedFile);
-        System.out.println(count + " " + count_added);
-        writer.close();
+//        System.out.println("Final output written in " + Main.OUTFILE);
+//        System.out.println("Number of elements written: " + count);
+//        writer.close();
         os.close();
-        return;
-
     }
 
     public int getSize() {

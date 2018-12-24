@@ -34,17 +34,18 @@ public class Main {
     public static int IMPLEMENTATION = 2;
     public static int R_IMPLEMENTATION = 4;
     public static int W_IMPLEMENTATION = 4;
-    private static int N = 10000000; //total integers on input
-    private static int M = 100000; //memory available
-    private static int d = 100; //total streams we can merge in one go
+    private static int N = 1000; //total integers on input
+    private static int M = 12; //memory available
+    private static int d = 50; //total streams we can merge in one go
     private static int K = 30; // number of streams
 
-    private static int BUFFERSIZE = 4*1000000;
+    private static int BUFFERSIZE = 4*1000;
 
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
-    private static String OUTFILE = "final_output/output.txt";
+    public static String OUTFILE = "final_output/output.txt";
+    private static String INPUT_DIR = "~/inputs/";
     private static InStream is;
     private static OutStream os;
 
@@ -65,7 +66,7 @@ public class Main {
         if (BENCHMARK == 0) { //generate 8 input files with 10 100 1000 10000 ... 10m integers
             for (int i = 1; i <= 8; i++) {
                 GenerateFile gf = new GenerateFile();
-                gf.generate("input_" + (int) Math.pow(10, i) + ".txt", (int) Math.pow(10, i));
+                gf.generate(INPUT_DIR + "input_" + (int) Math.pow(10, i) + ".txt", (int) Math.pow(10, i));
             }
         } else if (BENCHMARK == 1) { //benchmark the 4 read/write implementations
 

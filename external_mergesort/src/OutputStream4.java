@@ -49,6 +49,9 @@ public class OutputStream4 extends OutStream{
         if (mem instanceof sun.nio.ch.DirectBuffer) {
             sun.misc.Cleaner cleaner = ((sun.nio.ch.DirectBuffer) mem).cleaner();
             cleaner.clean();
+        } else {
+            mem = null;
+            System.gc();
         }
         fc.truncate(memPos); //FileChannel
         fc.close();
