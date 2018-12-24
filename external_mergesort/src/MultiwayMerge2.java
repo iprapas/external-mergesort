@@ -20,7 +20,7 @@ public class MultiwayMerge2 {
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("mwmerged/mwmerged%d.txt", mwCount++);
+        String mwMergedFile = String.format("~/temp/mwmerged/mwmerged%d.txt", mwCount++);
 //        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
         WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
         OutStream os = ws.getStream();
