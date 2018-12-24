@@ -117,7 +117,7 @@ public class Main {
             ExternalMergesort2 em = new ExternalMergesort2(INPUTFILE, N, M, d, BUFFERSIZE);
             endTime = System.currentTimeMillis();
             System.out.println("Time: " + (endTime - startTime) + "ms");
-            System.out.println(testCorrectness());
+//            System.out.println(testCorrectness());
 
         } else if (BENCHMARK == 3) { //in memory sort
             GenerateFile gf = new GenerateFile();
