@@ -35,7 +35,7 @@ public class Main {
     public static int R_IMPLEMENTATION = 4;
     public static int W_IMPLEMENTATION = 4;
     private static int N = 1000; //total integers on input
-    private static int M = 12; //memory available
+    public static int M = 12; //memory available
     private static int d = 50; //total streams we can merge in one go
     private static int K = 30; // number of streams
 
@@ -44,8 +44,8 @@ public class Main {
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
-    public static String OUTFILE = "~/temp/final_output/output.txt";
-    private static String INPUT_DIR = "~/inputs/";
+    public static String OUTFILE = "/home/io_prapas/temp/final_output/output.txt";
+    private static String INPUT_DIR = "/home/io_prapas/inputs/";
     private static InStream is;
     private static OutStream os;
 

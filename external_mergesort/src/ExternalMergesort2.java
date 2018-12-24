@@ -9,7 +9,7 @@ public class ExternalMergesort2 {
     private int d; //total streams we can merge in one go
     private int B; //size of buffer (for I/Os) 4*M
 
-    private String mergedFileFormat = "~/temp/merged/merged%d.txt";
+    private String mergedFileFormat = "/home/io_prapas/temp/merged/merged%d.txt";
     private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
     private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
     public ExternalMergesort2(String inputFile, int N, int M, int d, int B) throws IOException {

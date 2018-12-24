@@ -14,14 +14,18 @@ public class MultiwayMerge2 {
 
     public MultiwayMerge2(List<InStream> inStreams, int d, int B) throws IOException {
         this.inStreams = inStreams;
-        this.d = d;
+        if (d > Main.M){
+            this.d = Main.M;
+        } else {
+            this.d = d;
+        }
         this.B = B;
     }
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("~/temp/mwmerged/mwmerged%d.txt", mwCount++);
-//        PrintWriter writer = new PrintWriter(mwMergedFile + "visual.txt");
+        String mwMergedFile = String.format("/home/io_prapas/temp/mwmerged/mwmerged%d.txt", mwCount++);
+//        PrintWriter writer = new PrintWriter(mwMergedFile + "_visual.txt");
         WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
         OutStream os = ws.getStream();
         os.create();
