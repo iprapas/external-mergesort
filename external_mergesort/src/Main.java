@@ -29,7 +29,7 @@ import java.util.List;
 public class Main {
     private static long startTime;
     private static long endTime;
-    private static final boolean CMD_RUN = false;
+    private static final boolean CMD_RUN = true;
 
     public static int IMPLEMENTATION = 2;
     public static int R_IMPLEMENTATION = 4;
@@ -109,9 +109,9 @@ public class Main {
             System.out.println("AVG(" + IMPLEMENTATION + "): " + getAverage(times) + "ms on N=" + N + ", B=" + BUFFERSIZE + ", k=" + K);
 
         } else if (BENCHMARK == 2) { //external mergesort
-            GenerateFile gf = new GenerateFile();
-            gf.generate(INPUTFILE, N);
-            System.out.println("File Generated");
+//            GenerateFile gf = new GenerateFile();
+//            gf.generate(INPUTFILE, N);
+//            System.out.println("File Generated");
 
             startTime = System.currentTimeMillis();
             ExternalMergesort2 em = new ExternalMergesort2(INPUTFILE, N, M, d, BUFFERSIZE);
