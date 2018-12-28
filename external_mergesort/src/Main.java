@@ -45,6 +45,8 @@ public class Main {
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
     public static String HOME_DIR = "/home/jp/Projects/project-abmartin-iprapas-sopapado";
+    public static String INPUT_IO_DIR = HOME_DIR + '/input_io';
+    public static String OUTPUT_IO_DIR = HOME_DIR + '/output_io';
     public static String OUTFILE = HOME_DIR + "/temp/final_output/output.txt";
     private static String INPUT_DIR = HOME_DIR + "/inputs/";
     private static InStream is;
@@ -59,13 +61,14 @@ public class Main {
             } else {
                 BENCHMARK = Integer.parseInt(args[0]);
                 if (BENCHMARK==1) {
-                    if (args.length!= 4) {
-                        System.out.println("Please enter 4 arguments: <0,1,2,3> <IO implementation> <buffersize> <K Streams>");
+                    if (args.length!= 5) {
+                        System.out.println("Please enter 4 arguments: <0,1,2,3> <IO implementation> <buffersize> <N> <K Streams>");
                         System.exit(0);
                     }
                     IMPLEMENTATION = Integer.parseInt(args[1]);
                     BUFFERSIZE = Integer.parseInt(args[2]);
-                    K = Integer.parseInt(args[3]);
+                    N = Integer.parseInt(args[3]);
+                    K = Integer.parseInt(args[4]);
 
                 }
                 else if (BENCHMARK == 2) {
@@ -94,20 +97,7 @@ public class Main {
             }
         } else if (BENCHMARK == 1) { //benchmark the 4 read/write implementations
 
-            //create 30 input files of size N -not timed.
-            for (int i = 1; i <= K; i++) {
-                GenerateFile gf = new GenerateFile();
-                gf.generate("input/input_" + i + ".txt", N);
-            }
-
-            ArrayList<Long> times = new ArrayList<>();
-            for (int m = 0; m < 5; m++) { //run implementation 5 times and take avg.
-                startTime = System.currentTimeMillis();
-                benchIO(K);
-                endTime = System.currentTimeMillis();
-                times.add(endTime - startTime);
-            }
-            System.out.println("AVG(" + IMPLEMENTATION + "): " + getAverage(times) + "ms on N=" + N + ", B=" + BUFFERSIZE + ", k=" + K);
+            benchIO(K);
 
         } else if (BENCHMARK == 2) { //external mergesort
 //            GenerateFile gf = new GenerateFile();
@@ -164,9 +154,9 @@ public class Main {
         ArrayList<InStream> inputstreams = new ArrayList();
         ArrayList<OutStream> outputstreams = new ArrayList();
 
-        for (int i = 1; i <= k; i++) {
-            String infile = "input/input_" + i + ".txt";
-            String outfile = "output/output_" + i + ".txt";
+        for (int i = 0; i < k; i++) {
+            String infile = INPUT_IO_DIR + "/input_" + i + ".txt";
+            String outfile = OUTPUT_IO_DIR + "/output_" + i + ".txt";
 
             ReaderStream rs = new ReaderStream(IMPLEMENTATION, infile, BUFFERSIZE);
             WriterStream ws = new WriterStream(IMPLEMENTATION, outfile, BUFFERSIZE);
