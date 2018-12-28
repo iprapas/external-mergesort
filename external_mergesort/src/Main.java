@@ -96,9 +96,9 @@ public class Main {
                 gf.generate(INPUT_DIR + "input_" + (int) Math.pow(10, i) + ".txt", (int) Math.pow(10, i));
             }
         } else if (BENCHMARK == 1) { //benchmark the 4 read/write implementations
-
+            startTime = System.currentTimeMillis();
             benchIO(K);
-
+            System.out.println(System.currentTimeMillis() - startTime + " ms");
         } else if (BENCHMARK == 2) { //external mergesort
 //            GenerateFile gf = new GenerateFile();
 //            gf.generate(INPUTFILE, N);
