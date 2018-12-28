@@ -44,7 +44,7 @@ public class Main {
     private static int BENCHMARK=2; // 0 GEN FILE & RUN, 1 I/O TEST
     private static String INPUTFILE = "generated_input_"+ N +".txt";
     private static String OUTPUTFILENAME= "output_implementation_" + IMPLEMENTATION +".txt";
-    public static String HOME_DIR = "/home/jp/Projects/project-abmartin-iprapas-sopapado"
+    public static String HOME_DIR = "/home/jp/Projects/project-abmartin-iprapas-sopapado";
     public static String OUTFILE = HOME_DIR + "/temp/final_output/output.txt";
     private static String INPUT_DIR = HOME_DIR + "/inputs/";
     private static InStream is;
