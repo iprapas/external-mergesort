@@ -1,0 +1,28 @@
+# started on Fri Dec 28 15:14:54 2018
+
+
+ Performance counter stats for 'java Main 2 4 4000 1000000 1000 1000 /home/jp/Projects/project-abmartin-iprapas-sopapado/inputs/input_1000000.txt /home/jp/Projects/project-abmartin-iprapas-sopapado/temp/final_output/final_output.txt' (5 runs):
+
+       1108.675572      task-clock (msec)         #    1.636 CPUs utilized            ( +-  0.51% )
+               855      context-switches          #    0.772 K/sec                    ( +-  6.45% )
+                44      cpu-migrations            #    0.040 K/sec                    ( +-  7.95% )
+            18'140      page-faults               #    0.016 M/sec                    ( +-  0.29% )
+     3'390'150'840      cycles                    #    3.058 GHz                      ( +-  0.77% )  (31.11%)
+     3'755'320'753      instructions              #    1.11  insn per cycle           ( +-  1.09% )  (38.75%)
+       703'440'756      branches                  #  634.487 M/sec                    ( +-  1.14% )  (38.59%)
+        31'192'412      branch-misses             #    4.43% of all branches          ( +-  1.12% )  (38.19%)
+     1'188'502'953      L1-dcache-loads           # 1072.002 M/sec                    ( +-  1.24% )  (38.40%)
+        66'728'682      L1-dcache-load-misses     #    5.61% of all L1-dcache hits    ( +-  0.98% )  (38.06%)
+        14'374'778      LLC-loads                 #   12.966 M/sec                    ( +-  1.58% )  (31.14%)
+         1'465'058      LLC-load-misses           #   10.19% of all LL-cache hits     ( +-  2.61% )  (31.07%)
+   <not supported>      L1-icache-loads                                             
+        46'032'119      L1-icache-load-misses                                         ( +-  2.80% )  (30.75%)
+     1'217'872'552      dTLB-loads                # 1098.493 M/sec                    ( +-  1.42% )  (30.83%)
+           666'700      dTLB-load-misses          #    0.05% of all dTLB cache hits   ( +-  2.74% )  (30.26%)
+         2'322'830      iTLB-loads                #    2.095 M/sec                    ( +-  3.52% )  (30.74%)
+           502'457      iTLB-load-misses          #   21.63% of all iTLB cache hits   ( +-  4.08% )  (30.85%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+       0.677566879 seconds time elapsed                                          ( +-  1.92% )
+
