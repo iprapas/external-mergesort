@@ -1,0 +1,28 @@
+# started on Fri Dec 28 18:13:36 2018
+
+
+ Performance counter stats for 'java Main 1 3 16384 100000 8' (5 runs):
+
+        275.894130      task-clock (msec)         #    1.354 CPUs utilized            ( +-  1.12% )
+               233      context-switches          #    0.845 K/sec                    ( +-  2.21% )
+                13      cpu-migrations            #    0.046 K/sec                    ( +- 15.11% )
+             3'361      page-faults               #    0.012 M/sec                    ( +-  1.73% )
+       850'244'024      cycles                    #    3.082 GHz                      ( +-  1.09% )  (34.64%)
+       920'097'056      instructions              #    1.08  insn per cycle           ( +-  2.56% )  (42.81%)
+       180'911'242      branches                  #  655.727 M/sec                    ( +-  1.30% )  (40.92%)
+         3'256'500      branch-misses             #    1.80% of all branches          ( +-  4.40% )  (39.34%)
+       323'017'732      L1-dcache-loads           # 1170.803 M/sec                    ( +-  1.67% )  (37.74%)
+         7'343'689      L1-dcache-load-misses     #    2.27% of all L1-dcache hits    ( +-  5.06% )  (35.33%)
+         1'170'198      LLC-loads                 #    4.241 M/sec                    ( +-  6.21% )  (25.80%)
+           200'697      LLC-load-misses           #   17.15% of all LL-cache hits     ( +-  3.28% )  (24.89%)
+   <not supported>      L1-icache-loads                                             
+         8'905'212      L1-icache-load-misses                                         ( +-  8.04% )  (26.66%)
+       280'389'079      dTLB-loads                # 1016.292 M/sec                    ( +-  2.25% )  (30.03%)
+            79'138      dTLB-load-misses          #    0.03% of all dTLB cache hits   ( +-  3.28% )  (33.28%)
+           620'214      iTLB-loads                #    2.248 M/sec                    ( +-  2.28% )  (35.77%)
+            77'332      iTLB-load-misses          #   12.47% of all iTLB cache hits   ( +-  6.84% )  (35.60%)
+   <not supported>      L1-dcache-prefetches                                        
+   <not supported>      L1-dcache-prefetch-misses                                   
+
+       0.203777774 seconds time elapsed                                          ( +-  1.07% )
+
