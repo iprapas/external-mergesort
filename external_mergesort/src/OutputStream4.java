@@ -4,14 +4,14 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
 
-public class OutputStream4 extends OutStream{
+public class OutputStream4 extends OutStream {
     private final int bsize;
     private FileChannel fc;
     private MappedByteBuffer mem;
     private long memPos;
     private long runningPos;
 
-    public OutputStream4(String filepath, int bufferSize){
+    public OutputStream4(String filepath, int bufferSize) {
         path = filepath;
         bsize = bufferSize;
     }

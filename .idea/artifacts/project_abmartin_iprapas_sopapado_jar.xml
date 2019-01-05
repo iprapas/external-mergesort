@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="project-abmartin-iprapas-sopapado:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/project_abmartin_iprapas_sopapado_jar</output-path>
+    <root id="archive" name="project-abmartin-iprapas-sopapado.jar">
+      <element id="module-output" name="external_mergesort" />
+    </root>
+  </artifact>
+</component>

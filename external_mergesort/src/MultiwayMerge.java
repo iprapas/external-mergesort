@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class MultiwayMerge2 {
+public class MultiwayMerge {
     private List<InStream> inStreams;
     private int d;
     private int B;
@@ -12,9 +12,9 @@ public class MultiwayMerge2 {
     private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
     private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
 
-    public MultiwayMerge2(List<InStream> inStreams, int d, int B) throws IOException {
+    public MultiwayMerge(List<InStream> inStreams, int d, int B) throws IOException {
         this.inStreams = inStreams;
-        if (d > Main.M){
+        if (d > Main.M) {
             this.d = Main.M;
         } else {
             this.d = d;
@@ -24,9 +24,9 @@ public class MultiwayMerge2 {
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format(Main.HOME_DIR + "/temp/mwmerged/mwmerged%d.txt", mwCount++);
+        String mwMergedFile = String.format("temp\\mwmerged\\mwmerged%d.txt", mwCount++);
 //        PrintWriter writer = new PrintWriter(mwMergedFile + "_visual.txt");
-        WriterStream ws = new WriterStream(W_IMPLEMENTATION,mwMergedFile,B);
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION, mwMergedFile, B);
         OutStream os = ws.getStream();
         os.create();
         // take first d streams
@@ -56,7 +56,7 @@ public class MultiwayMerge2 {
             }
         }
         os.close();
-        InStream temp =  new ReaderStream(R_IMPLEMENTATION, mwMergedFile, B).getStream();
+        InStream temp = new ReaderStream(R_IMPLEMENTATION, mwMergedFile, B).getStream();
         inStreams.add(temp);
 //        writer.close();
         return;
@@ -64,7 +64,7 @@ public class MultiwayMerge2 {
 
     public void finalMerge() throws IOException {
         List<InStream> dStreams;
-        WriterStream ws = new WriterStream(W_IMPLEMENTATION,Main.OUTFILE,B);
+        WriterStream ws = new WriterStream(W_IMPLEMENTATION, Main.OUTFILE, B);
 
 //        PrintWriter writer = new PrintWriter(Main.OUTFILE + "visual.txt");
 
