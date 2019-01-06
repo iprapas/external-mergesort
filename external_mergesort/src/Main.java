@@ -30,15 +30,15 @@ public class Main {
     private static long endTime;
     private static final boolean CMD_RUN = true;
 
-    public static int IMPLEMENTATION = 2;
-    public static int R_IMPLEMENTATION = 2;
-    public static int W_IMPLEMENTATION = 2;
+    public static int IMPLEMENTATION = 4;
+    public static int R_IMPLEMENTATION = 4;
+    public static int W_IMPLEMENTATION = 4;
     private static int N = 100000; //total integers on input
     public static int M = 1000; //memory available
     private static int d = 100; //total streams we can merge in one go
     private static int K = 10; // number of streams
 
-    private static int BUFFERSIZE = 4096;
+    private static int BUFFERSIZE = 4000;
 
     private static int BENCHMARK = 2; // 0 GEN FILE, 1 I/O TEST, 2 EXTERNAL MERGESORT, 3 INTERNAL SORT
     private static String INPUTFILE = "generated_input_" + N + ".txt";
@@ -54,9 +54,8 @@ public class Main {
 
         if (CMD_RUN) { //initiate parameters from command line
 
-            if (args.length < 1) {
-                System.out.println("Please enter 4 arguments: <0,1,2,3> <IO implementation> <buffersize> <N> <M> <D> ");
-                System.exit(0);
+            if (args.length == 0) {
+                //use all default values
             } else {
                 BENCHMARK = Integer.parseInt(args[0]);
 
@@ -102,6 +101,10 @@ public class Main {
                         BUFFERSIZE = Integer.parseInt(args[2]);
                         N = Integer.parseInt(args[3]);
                         break;
+
+                    default:
+                        System.out.println("Please enter 6 arguments: <Bench 0,1,2,3> <IO implementation> <buffersize> <N numbers> <M memory> <Dway merge>"); //<inputfile> <outfile>
+                        System.exit(0);
                 }
             }
         }
@@ -113,10 +116,13 @@ public class Main {
                 GenerateFile gf = new GenerateFile();
                 gf.generate(INPUT_DIR + "input_" + (int) Math.pow(10, i) + ".txt", (int) Math.pow(10, i));
             }
+            System.out.println("8 files generated with 10, 100 ... 10m integers");
+
         } else if (BENCHMARK == 1) { //benchmark the 4 read/write implementations
             startTime = System.currentTimeMillis();
             benchIO(K);
             System.out.println(System.currentTimeMillis() - startTime + " ms");
+
         } else if (BENCHMARK == 2) { //external mergesort
             GenerateFile gf = new GenerateFile();
             gf.generate(INPUTFILE, N);
@@ -126,6 +132,7 @@ public class Main {
             ExternalMergesort em = new ExternalMergesort(INPUTFILE, N, M, d, BUFFERSIZE);
             endTime = System.currentTimeMillis();
             System.out.println("Time: " + (endTime - startTime) + "ms");
+            System.out.println("External mergesort on I/O " + IMPLEMENTATION + " Buffer size: " + BUFFERSIZE + " N: " + N +" M: " + M + " d: " + d); //<inputfile> <outfile>
 //            System.out.println(testCorrectness());
 
         } else if (BENCHMARK == 3) { //in memory sort
@@ -143,6 +150,7 @@ public class Main {
             long start = System.currentTimeMillis();
             Collections.sort(l);
             System.out.println(System.currentTimeMillis() - start + " ms (Internal)");
+            System.out.println("Internal sorting on I/O " + IMPLEMENTATION + " Buffer size: " + BUFFERSIZE + " N: " + N); //<inputfile> <outfile>
             WriterStream ws = new WriterStream(W_IMPLEMENTATION, OUTPUTFILENAME, BUFFERSIZE);
             OutStream os = ws.getStream();
             os.create();
