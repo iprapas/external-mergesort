@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class MultiwayMerge {
 
     public void mergeD() throws IOException {
         List<InStream> dStreams = new ArrayList<>();
-        String mwMergedFile = String.format("temp\\mwmerged\\mwmerged%d.txt", mwCount++);
+        String mwMergedFile = String.format("temp"+ File.separator +"mwmerged"+ File.separator +"mwmerged%d.txt", mwCount++);
 //        PrintWriter writer = new PrintWriter(mwMergedFile + "_visual.txt");
         WriterStream ws = new WriterStream(W_IMPLEMENTATION, mwMergedFile, B);
         OutStream os = ws.getStream();

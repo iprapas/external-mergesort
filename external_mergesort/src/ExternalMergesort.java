@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +10,7 @@ public class ExternalMergesort {
     private int d; //total streams we can merge in one go
     private int B; //size of buffer (for I/Os) 4*M
 
-    private String mergedFileFormat = "temp\\merged\\merged%d.txt";
+    private String mergedFileFormat = "temp"+ File.separator +"merged"+ File.separator +"merged%d.txt";
     private int R_IMPLEMENTATION = Main.R_IMPLEMENTATION;
     private int W_IMPLEMENTATION = Main.W_IMPLEMENTATION;
 

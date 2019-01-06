@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +46,8 @@ public class Main {
     private static String OUTPUTFILENAME = "output_implementation_" + IMPLEMENTATION + ".txt";
     public static String INPUT_IO_DIR = "input_io";
     public static String OUTPUT_IO_DIR = "output_io";
-    public static String OUTFILE = "temp\\final_output\\output.txt";
-    private static String INPUT_DIR = "inputs\\";
+    public static String OUTFILE = "temp"+ File.separator +"final_output"+ File.separator +"output.txt";
+    private static String INPUT_DIR = "inputs"+ File.separator;
     private static InStream is;
     private static OutStream os;
 
