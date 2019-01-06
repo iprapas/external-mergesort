@@ -45,11 +45,12 @@ This branch holds the code, which was used for the development. You can run it d
 
 Any changes in the parameters should be done inside the code in the Main class (external_mergesort/src/Main.java).
 
+For ease of use, we have created a jar file which you can run alone, without any arguments to produce a simple run of External mergesort.
+
 # Benchmark_run Branch
 
 This branch holds the code, with which we run the benchmark tests. It can be run from the command line with arguments. However, it is dependent on paths of the machine that we used for testing and therefore we recommend you don't try to run it without modifying these paths in the code and ensuring that you have all the directories needed in place.
 =======
-For ease of use, we have created a jar file which you can run alone, without any arguments to produce a simple run of External mergesort.
 If wanted, you can provide the relevant arguments to run the algorithms as explained below.
 
 =======================================================================================================
