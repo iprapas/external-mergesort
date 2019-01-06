@@ -1,3 +1,6 @@
+For ease of use, we have created a jar file which you can run alone, without any arguments to produce a simple run of External mergesort.
+If wanted, you can provide the relevant arguments to run the algorithms as explained below.
+
 =======================================================================================================
 
 There is a total of 6 parameters that you can (but not mandatorily - depending on execution) pass into the program.
@@ -37,7 +40,7 @@ java -jar project-abmartin-iprapas-sopapado.jar 0
 >> 8 input files will be generated under inputs/ folder ranging from 10 to 10m integers
 
 -------------------------------------------------------------------------------------------------------
-[You will need benchmark branch to run this]
+[You will need benchmark branch to run this, as you need to generate test files into "input_io" and "output_io" folders]
 Example of Read/Write implementations benchmark with buffered stream (3), of buffer size 4096, for 1000 numbers, 5 streams
 java -jar project-abmartin-iprapas-sopapado.jar 1 3 4096 1000 5
 
