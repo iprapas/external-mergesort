@@ -46,6 +46,7 @@ This branch holds the code, which was used for the development. You can run it d
 Any changes in the parameters should be done inside the code in the Main class (external_mergesort/src/Main.java).
 
 For ease of use, we have created a jar file which you can run alone, without any arguments to produce a simple run of External mergesort.
+java -jar project-abmartin-iprapas-sopapado.jar
 
 # Benchmark_run Branch
 
