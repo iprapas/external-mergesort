@@ -22,13 +22,13 @@
 >>>> MultiwayMerge.java - Class implementing the d-way merge algorithm
 >>>> QueueItem.java ->>>> Class for objects that will be inserted in stream queue
 
-*scripts/*
+*scripts/* - Shell scripts used to run the tests
 >>>> run_IO.sh - runs the Input/Output tests
 >>>> runD.sh - runs the external mergesort tests with d variable
 >>>> runM.sh - runs the external mergesort tests with M variable
 >>>> runN.sh - runs the external mergesort tests with N variable
 
-*results/*
+*results/* - Results as obtained by the execution of the scripts
 >>>> IO/ directory with results of all the Input/Output tests
 >>>> DVAR/ directory with external mergesort tests with d variable
 >>>> MVAR/ directory with external mergesort tests with M variable
