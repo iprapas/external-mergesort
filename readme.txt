@@ -1,44 +1,43 @@
 # Repo Structure
 
 *external_mergesort/src/* source code directory
-	Main.java Main class used to run the code
-	GenerateFile.java Class used to generate a test file
-	
-	ReaderStream.java  Factory class for different objects of type InStream
-	InStream.java Abstract class for input streams
-	InputStream1.java Read Implementation 1
-	InputStream2.java Read Implementation 2 (default size buffer)
-	InputStream3.java Read Implementation 3 (variable size buffer)
-	InputStream4.java Read Implementation 4 (memory map)
-	
-	WriterStream.java Factory class for different objects of type OutStream
-	OutStream.java Abstract class for output streams
-	OutputStream1.java Write Implementation 1
-	OutputStream2.java Write Implementation 2 (default size buffer)
-	OutputStream3.java Write Implementation 3 (variable size buffer)
-	OutputStream4.java Write Implementation 4 (memory map)
-	
-	ExternalMergesort.java Class implementing the external mergesort algorithm
-	MultiwayMerge.java Class implementing the d-way merge algorithm
-	QueueItem.java	Class for objects that will be inserted in stream queue
-	
+>>>> Main.java - Main class used to run the code
+>>>> GenerateFile.java - Class used to generate a test file
+
+>>>> ReaderStream.java -  Factory class for different objects of type InStream
+>>>> InStream.java - Abstract class for input streams
+>>>> InputStream1.java - Read Implementation 1
+>>>> InputStream2.java - Read Implementation 2 (default size buffer)
+>>>> InputStream3.java - Read Implementation 3 (variable size buffer)
+>>>> InputStream4.java - Read Implementation 4 (memory map)
+
+>>>> WriterStream.java - Factory class for different objects of type OutStream
+>>>> OutStream.java - Abstract class for output streams
+>>>> OutputStream1.java - Write Implementation 1
+>>>> OutputStream2.java - Write Implementation 2 (default size buffer)
+>>>> OutputStream3.java - Write Implementation 3 (variable size buffer)
+>>>> OutputStream4.java - Write Implementation 4 (memory map)
+
+>>>> ExternalMergesort.java - Class implementing the external mergesort algorithm
+>>>> MultiwayMerge.java - Class implementing the d-way merge algorithm
+>>>> QueueItem.java ->>>> Class for objects that will be inserted in stream queue
+
 *scripts/*
-	run_IO.sh runs the Input/Output tests
-	runD.sh runs the external mergesort tests with d variable
-	runM.sh runs the external mergesort tests with M variable
-	runN.sh runs the external mergesort tests with N variable
+>>>> run_IO.sh - runs the Input/Output tests
+>>>> runD.sh - runs the external mergesort tests with d variable
+>>>> runM.sh - runs the external mergesort tests with M variable
+>>>> runN.sh - runs the external mergesort tests with N variable
 
 *results/*
-	IO/ directory with results of all the Input/Output tests
-	DVAR/ directory with external mergesort tests with d variable
-	MVAR/ directory with external mergesort tests with M variable
-	NVAR/ directory with external mergesort tests with N variable
+>>>> IO/ directory with results of all the Input/Output tests
+>>>> DVAR/ directory with external mergesort tests with d variable
+>>>> MVAR/ directory with external mergesort tests with M variable
+>>>> NVAR/ directory with external mergesort tests with N variable
 
-*merged/* Intermediate(before merge) results directory
-
-*mwmerged/* Intermediate(after merge) results directory
-
-*final_output/* Final results directory
+*temp/* - Intermediate results directory
+>>>> *merged/* - Intermediate(before merge) results directory
+>>>> *mwmerged/* - Intermediate(after merge) results directory
+>>>> *final_output/* Final results directory
 
 # Master Branch
 
