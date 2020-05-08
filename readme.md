@@ -79,27 +79,27 @@ If you want, you can provide the relevant arguments to run the algorithms as exp
 
 There is a total of 6 parameters that you can (but not mandatorily - depending on execution) pass into the program.
 
-**<bench 0,1,2,3>**
+**bench 0,1,2,3**
 
 0 = Generate files, 1 = Input/Output streams testing, 2 = External Mergesort, 3 = In-memory sort
 
-**<IO implementation>**
+**IO implementation**
  
 1 = data input stream, 2 = buffered input stream with default size, 3 = buffered input stream with specified size, 4 = memory mapping
 
-**<buffersize>**
+**buffersize**
 how many bytes to set as buffer
 
-**<N numbers>**
+**N numbers**
 the number of integers to generate and then sort
 
-**<M memory> **
+**M memory**
 how many 32-bit integers the memory can fit
 
-** <Dway merge> **
+**Dway merge**
 the number of streams that can be sorted in one pass
 
-** <K Streams> **
+**K Streams**
 the number of streams to be created (for Read/Write experiments)
 
 
